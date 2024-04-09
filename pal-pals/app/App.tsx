@@ -1,5 +1,5 @@
-import Home from './app/index';
-import Navbar from './app/components/Navbar';
+import Home from './index';
+import Navbar from './components/Navbar';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

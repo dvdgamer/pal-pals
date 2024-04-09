@@ -27,7 +27,9 @@
       "favicon": "./assets/favicon.png"
     },
     "description": "An app to help you find your next best friend",
-    "jsEngine": "jsc"
-
+    "jsEngine": "jsc",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

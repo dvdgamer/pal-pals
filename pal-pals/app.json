@@ -1,5 +1,8 @@
 {
   "expo": {
+    "experiments": {
+      "typedRoutes": true
+    },
     "name": "pal-pals",
     "slug": "pal-pals",
     "version": "1.0.0",
@@ -27,7 +30,9 @@
       "favicon": "./assets/favicon.png"
     },
     "description": "An app to help you find your next best friend",
-    "jsEngine": "jsc"
-
+    "jsEngine": "jsc",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

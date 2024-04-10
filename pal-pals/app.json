@@ -1,5 +1,8 @@
 {
   "expo": {
+    "experiments": {
+      "typedRoutes": true
+    },
     "name": "pal-pals",
     "slug": "pal-pals",
     "version": "1.0.0",

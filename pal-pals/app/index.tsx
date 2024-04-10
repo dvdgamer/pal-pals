@@ -1,34 +1,25 @@
-import { useState } from "react";
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
-import { Stack, useRouter } from "expo-router";
-import Hello from "../components/Hello";
-import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
+import { Pressable, Text, View, StyleSheet } from "react-native";
+import { Link } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
-const Home = () => {
-  // const router = useRouter();
-  // const navigation = useNavigation();
 
+export default function Page() {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Stack.Screen
-        options={{
-          headerShadowVisible: false,
-          headerTitle: 'Home',
-          headerRight: () => (
-            <ScreenHeaderBtn title="Right Button" onClick={() => console.log('Button clicked')} />
-          ),
-          headerLeft: () => (
-            <ScreenHeaderBtn title="Left Button" onClick={() => console.log('Button clicked')} />
-          ),
-        }} />
-      <ScrollView>
-        <View>
-          <Text>Home Page</Text>
-          <Hello />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <View className="flex-1 items-center justify-center bg-white">
+      <Link href="/pages/settings" asChild>
+        <Pressable>
+          <Text>Home</Text>
+          <StatusBar style="auto"/>
+        </Pressable>
+      </Link>
+    </View>
   );
 }
 
-export default Home;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

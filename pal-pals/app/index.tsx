@@ -5,10 +5,10 @@ import { StatusBar } from "expo-status-bar";
 
 export default function Page() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Link href="/pages/settings" asChild>
         <Pressable>
-          <Text>Home</Text>
+          <Text style={{ fontWeight: "bold" }}>Home</Text>
           <StatusBar style="auto"/>
         </Pressable>
       </Link>

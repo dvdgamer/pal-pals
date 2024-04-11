@@ -2,11 +2,12 @@ import { useState } from "react";
 import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { Stack, useRouter } from "expo-router";
 import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
+import { useNavigation } from "@react-navigation/native";
 
 
 const Home = () => {
   // const router = useRouter();
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={{flex: 1}}>

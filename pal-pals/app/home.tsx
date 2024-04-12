@@ -6,36 +6,23 @@ import { useNavigation } from "@react-navigation/native";
 
 
 const Home = () => {
-  // const router = useRouter();
+
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Stack.Screen
-        name="Home"
-        options={{
-          headerShadowVisible: false,
-          headerTitle: 'Home',
-          headerRight: () => (
-            <ScreenHeaderBtn title="Right Button" onClick={() => console.log('Button clicked')} />
-          ),
-          headerLeft: () => (
-            <ScreenHeaderBtn title="Left Button" onClick={() => console.log('Button clicked')} />
-          )
-        }} />
-      <ScrollView>
-        <View>
-          <Text>Home Component</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    <Stack.Screen
+      name="Home"
+      options={{
+        headerShadowVisible: false,
+        headerTitle: 'Home',
+        headerRight: () => (
+          <ScreenHeaderBtn title="Right Button" onClick={() => console.log('Button clicked')} />
+        ),
+        headerLeft: () => (
+          <ScreenHeaderBtn title="Left Button" onClick={() => console.log('Button clicked')} />
+        )
+      }} />
+    );
 }
 
 export default Home;
-
-// import { Redirect } from "expo-router";
-
-// export default function Index() {
-//     return <Redirect href="/home" />;
-// }

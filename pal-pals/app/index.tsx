@@ -1,17 +1,19 @@
-import { Pressable, Text, View, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { Pressable, Text, View, StyleSheet, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+// import Settings from "./screens/settings";
 
-export default function Page() {
+export default function HomeScreen() {
+  const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Link href="/settings" asChild>
-        <Pressable>
-          <Text style={{ fontWeight: "bold" }}>Home</Text>
-          <StatusBar style="auto"/>
-        </Pressable>
-      </Link>
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
+      <Button
+        title="+"
+        onPress={() => navigation.navigate("Add a friend")}
+        style={styles.addFriend}
+      />
     </View>
   );
 }
@@ -21,5 +23,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  addFriend: {
+    backgroundColor: "green",
+    color: "white",
+    padding: 10,
+    borderRadius: 5,
   },
 });

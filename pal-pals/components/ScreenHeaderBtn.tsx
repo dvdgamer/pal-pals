@@ -1,4 +1,5 @@
-import React from 'react';
+import { TouchableOpacity, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 interface ScreenHeaderBtnProps {
   title: string;
@@ -6,10 +7,12 @@ interface ScreenHeaderBtnProps {
 }
 
 const ScreenHeaderBtn: React.FC<ScreenHeaderBtnProps> = ({ title, onClick }) => {
+    const navigation = useNavigation();
+
   return (
-    <button onClick={onClick}>
-      {title}
-    </button>
+    <TouchableOpacity onPress={onClick}>
+      <Text>{title}</Text>
+    </TouchableOpacity>
   );
 };
 

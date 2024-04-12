@@ -2,6 +2,7 @@ import Home from "./app/home";
 import HomeScreen from "./app/index";
 import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
+import FriendsList from "./app/screens/friendsList";
 import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
@@ -11,7 +12,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 export default function App() {
-  // const navigation = useNavigation();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -21,6 +21,7 @@ export default function App() {
           options={({ navigation }) => ({
             headerShadowVisible: false,
             headerTitle: "Home",
+            headerTitleAlign: "center",
             headerRight: () => (
               <ScreenHeaderBtn
                 title="Settings"
@@ -28,11 +29,19 @@ export default function App() {
                 iconUrl={require('./assets/images/cog.png')}
                 dimension={{ width: 30, height: 30 }}
               />
+            ), headerLeft: () => (
+              <ScreenHeaderBtn
+                title="Settings"
+                onClick={() => navigation.navigate('Friends List')}
+                iconUrl={require('./assets/images/contacts.png')}
+                dimension={{ width: 30, height: 30 }}
+              />
             ),
           })}
         />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Add a friend" component={AddFriend} />
+        <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

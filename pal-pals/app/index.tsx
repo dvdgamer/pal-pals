@@ -15,12 +15,14 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
-
+      <Text style={{ fontWeight: "bold" }}>This is the Dashboard</Text>
       <TouchableOpacity
         style={styles.floatingButton}
         onPress={() => navigation.navigate("Add a friend")}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 35, color: "white" }}>+</Text>
+        <Text style={{ fontWeight: "bold", fontSize: 35, color: "white" }}>
+          +
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -38,6 +40,7 @@ const styles = StyleSheet.create({
     right: 30,
     backgroundColor: "#FFC9AD",
     padding: 5,
+    paddingVertical: 10,
     borderRadius: 100,
     height: 70,
     width: 70,

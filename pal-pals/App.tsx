@@ -25,6 +25,8 @@ export default function App() {
               <ScreenHeaderBtn
                 title="Settings"
                 onClick={() => navigation.navigate('Settings')}
+                iconUrl={require('./assets/images/cog.png')}
+                dimension={{ width: 30, height: 30 }}
               />
             ),
           })}

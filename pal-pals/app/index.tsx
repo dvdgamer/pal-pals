@@ -1,4 +1,4 @@
-import { Pressable, Text, View, StyleSheet, Button } from "react-native";
+import { Pressable, Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 // import Settings from "./screens/settings";
@@ -9,11 +9,9 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
-      <Button
-        title="+"
-        onPress={() => navigation.navigate("Add a friend")}
-        style={styles.addFriend}
-      />
+      <TouchableOpacity style={styles.addFriend} onPress={() => navigation.navigate("Add a friend")}>
+        <Text style={{ fontWeight: "bold" }}>+</Text>
+      </TouchableOpacity>
     </View>
   );
 }

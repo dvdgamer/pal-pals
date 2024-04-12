@@ -1,5 +1,4 @@
 import {
-  Pressable,
   Text,
   View,
   StyleSheet,
@@ -8,6 +7,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 // import Settings from "./screens/settings";
+
 
 export default function HomeScreen() {
   const navigation = useNavigation();

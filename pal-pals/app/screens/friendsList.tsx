@@ -15,8 +15,8 @@ export default function FriendList() {
   ];
 
   const renderFriend = ({ item }: { item: Friend }) => (
-    <View>
-      <Text>{item.name}</Text>
+    <View className='container'>
+      <Text className='px-4 mx-4'>{item.name}</Text>
     </View>
   );
 

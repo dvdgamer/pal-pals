@@ -20,26 +20,41 @@ export default function App() {
           component={HomeScreen}
           options={({ navigation }) => ({
             headerShadowVisible: false,
-            headerTitle: "Home",
+            headerTitle: "Dashboard",
             headerTitleAlign: "center",
             headerRight: () => (
               <ScreenHeaderBtn
                 title="Settings"
-                onClick={() => navigation.navigate('Settings')}
-                iconUrl={require('./assets/images/cog.png')}
+                onClick={() => navigation.navigate("Settings")}
+                iconUrl={require("./assets/images/cog.png")}
                 dimension={{ width: 30, height: 30 }}
               />
-            ), headerLeft: () => (
+            ),
+            headerLeft: () => (
               <ScreenHeaderBtn
-                title="Settings"
-                onClick={() => navigation.navigate('Friends List')}
-                iconUrl={require('./assets/images/contacts.png')}
-                dimension={{ width: 30, height: 30 }}
+                title="Friends List"
+                onClick={() => navigation.navigate("Friends List")}
+                iconUrl={require("./assets/images/contacts.png")}
+                dimension={{ width: 35, height: 35 }}
               />
             ),
           })}
         />
-        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen
+          name="Settings"
+          component={Settings}
+          options={({ navigation }) => ({
+            headerShadowVisible: true,
+            headerRight: () => (
+              <ScreenHeaderBtn
+                title="Settings"
+                onClick={() => navigation}
+                iconUrl={require("./assets/images/logoutIcon.png")}
+                dimension={{ width: 30, height: 30 }}
+              />
+            )
+          })}
+        />
         <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>

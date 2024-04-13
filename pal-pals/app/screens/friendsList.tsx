@@ -31,5 +31,3 @@ export default function FriendList() {
     </View>
   )
 };
-
-// export default FriendList;

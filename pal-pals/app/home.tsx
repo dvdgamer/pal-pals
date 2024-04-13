@@ -16,7 +16,7 @@ const Home = () => {
         headerShadowVisible: false,
         headerTitle: 'Home',
         headerRight: () => (
-          <ScreenHeaderBtn title="Right Button" onClick={() => console.log('Button clicked')} />
+          <ScreenHeaderBtn title="Right Button" onClick={() => console.log('Button clicked')} iconUrl={undefined} dimension={undefined} />
         ),
         headerLeft: () => (
           <ScreenHeaderBtn title="Left Button" onClick={() => console.log('Button clicked')} />

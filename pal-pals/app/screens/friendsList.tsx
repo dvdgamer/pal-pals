@@ -15,14 +15,14 @@ export default function FriendList() {
   ];
 
   const renderFriend = ({ item }: { item: Friend }) => (
-    <View className='container'>
-      <Text className='px-4 mx-4'>{item.name}</Text>
+    <View>
+      <Text>{item.name}</Text>
     </View>
   );
 
   return (
-    <View>
-      <Text>Friend List</Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text className='pt-5 mt-5'>Friend List</Text>
       <FlatList
         data={friends}
         renderItem={renderFriend}

@@ -38,14 +38,14 @@
 
 import { getMonth, getYear } from "date-fns";
 import React, { useState } from "react";
-import { Button, View } from "react-native";
+import { Button, View, Text } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import range from "lodash/range";
 
 export default function Calendar(): JSX.Element {
   const [startDate, setStartDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const years = range(1990, getYear(new Date()) + 1, 1);
+  const years = range(1920, getYear(new Date()) + 1, 1);
   const months = [
     "January",
     "February",
@@ -62,7 +62,7 @@ export default function Calendar(): JSX.Element {
   ];
   return (
     <View>
-      <Button title="Add their birthdate" onPress={() => setShowDatePicker(true)} />
+      <Button title="What's their birthdate ?" onPress={() => setShowDatePicker(true)} />
       {showDatePicker && (
         <DateTimePicker
           value={startDate}
@@ -75,6 +75,8 @@ export default function Calendar(): JSX.Element {
           }}
         />
       )}
+      <Text>Your friend's birthday is:</Text>
+      <Text style={{ fontWeight: 'bold' }}>{startDate.toDateString()}</Text>
     </View>
   );
 };

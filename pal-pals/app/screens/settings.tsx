@@ -20,7 +20,7 @@ export default function Settings() {
         </Text>
       </View>
 
-      <View style={styles.settingsMain}>
+      <View style={[styles.settingsMain, { borderBottomWidth: 0 }]}>
         <MainText>Edit Profile</MainText>
         <MainText>Preferences</MainText>
         <MainText>Notifications On/Off</MainText>

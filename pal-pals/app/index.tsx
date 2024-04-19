@@ -1,13 +1,7 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 // import Settings from "./screens/settings";
-
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -20,10 +14,19 @@ export default function HomeScreen() {
         style={styles.floatingButton}
         onPress={() => navigation.navigate("Add a friend")}
       >
-        <Text style={{ fontWeight: "bold", fontSize: 35, color: "white" }}>
+       <Text
+          style={{
+            // fontWeight: "bold",
+            fontSize: 30,
+            color: "white",
+          }}
+        >
           +
         </Text>
       </TouchableOpacity>
+      <View>
+
+      </View>
     </View>
   );
 }

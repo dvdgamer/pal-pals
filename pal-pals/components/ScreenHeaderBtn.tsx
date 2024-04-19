@@ -21,7 +21,7 @@ const ScreenHeaderBtn: React.FC<ScreenHeaderBtnProps> = ({
       source={iconUrl}
       resizeMode="cover"
       style={dimension}
-      className="my-4 mx-4"
+      className="my-4 mx-5"
        />
       {/* <Text>{title}</Text> */}
     </TouchableOpacity>

@@ -22,9 +22,10 @@ export default function FriendList() {
   ];
 
   const renderFriend = ({ item }: { item: Friend }) => (
-    <View>
-      <Text style={styles.friendElement}>{item.name}</Text>
+    <View style={styles.friendElementContainer}>
+      <Text>{item.name}</Text>
       <TouchableOpacity>
+      {/* This is a button to view the friend's profile */}
         <Image
           source={require("../../assets/images/cog.png")}
           resizeMode="cover"
@@ -48,17 +49,19 @@ export default function FriendList() {
 }
 
 const styles = StyleSheet.create({
-  friendElement: {
+  friendElementContainer: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     fontSize: 24,
     borderColor: "black",
     borderWidth: 1,
     margin: 10,
     padding: 10,
+    width: "100%",
   },
   friendText: {
+    flex: 1,
     fontSize: 24,
     margin: 10,
     width: "100%",

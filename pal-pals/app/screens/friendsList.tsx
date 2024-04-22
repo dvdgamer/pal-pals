@@ -25,11 +25,10 @@ export default function FriendList() {
     <View style={styles.friendElementContainer}>
       <Text>{item.name}</Text>
       <TouchableOpacity>
-      {/* This is a button to view the friend's profile */}
         <Image
           source={require("../../assets/images/cog.png")}
           resizeMode="cover"
-          style={{ width: 30, height: 30 }}
+          style={{ width: 30, height: 30, marginRight: 10 }}
         />
       </TouchableOpacity>
     </View>
@@ -50,7 +49,8 @@ export default function FriendList() {
 
 const styles = StyleSheet.create({
   friendElementContainer: {
-    flex: 1,
+    // flex: 1,
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     fontSize: 24,
@@ -61,10 +61,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   friendText: {
-    flex: 1,
     fontSize: 24,
     margin: 10,
     width: "100%",
-    // paddingLeft: 10,
   },
 });

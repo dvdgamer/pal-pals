@@ -35,7 +35,7 @@ export default function FriendList() {
   );
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text className="pt-5 mt-5">Friend List</Text>
       <FlatList
         data={friends}
@@ -56,9 +56,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     borderColor: "black",
     borderWidth: 1,
-    margin: 10,
+    marginTop: 10,
     padding: 10,
     width: "100%",
+    backgroundColor: "white",
   },
   friendText: {
     fontSize: 24,

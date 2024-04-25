@@ -1,4 +1,3 @@
-import React from "react";
 import {
   View,
   Text,
@@ -7,18 +6,23 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import AccordionView from '../../components/Collapsible';
 
 interface Friend {
-  id: string;
+  id: number;
   name: string;
+  content?: string;
+  dateOfBirth?: Date;
+  timeElapsed?: number;
 }
 
 export default function FriendList() {
   const friends: Friend[] = [
-    { id: "1", name: "John" },
-    { id: "2", name: "Jane" },
-    { id: "3", name: "Alice" },
-    { id: "4", name: "Bob" },
+    { id: 1, name: "John", content: "Friend 1", dateOfBirth: new Date(), timeElapsed: 0 },
+    { id: 2, name: "Jane", content: "Friend 2", dateOfBirth: new Date(), timeElapsed: 0 },
+    { id: 3, name: "Alice", content: "Friend 3", dateOfBirth: new Date(), timeElapsed: 0 },
+    { id: 4, name: "Bob", content: "Friend 4", dateOfBirth: new Date(), timeElapsed: 0 },
+    { id: 5, name: "Scotty Cryee", content: "Friend 5", dateOfBirth: new Date(), timeElapsed: 0 },
   ];
 
   const renderFriend = ({ item }: { item: Friend }) => (
@@ -40,9 +44,10 @@ export default function FriendList() {
       <FlatList
         data={friends}
         renderItem={renderFriend}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         style={styles.friendText}
       />
+      <AccordionView></AccordionView>
     </View>
   );
 }
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 24,
     borderColor: "black",
-    borderWidth: 1,
+    borderWidth: 0.5,
     marginTop: 10,
     padding: 10,
     width: "100%",

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import Accordion from 'react-native-collapsible/Accordion';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { Component } from "react";
+import Accordion from "react-native-collapsible/Accordion";
+import { View, Text, StyleSheet } from "react-native";
 
 // export default function Collapsible(): React.JSX.Element{
 //   const isCollapsed = true;
@@ -13,12 +13,77 @@ import { View, Text, StyleSheet } from 'react-native';
 // }
 // ;
 const SECTIONS = [
-  { id: 1, name: "John", dateOfBirth: new Date(1969, 0, 2), timeElapsed: 0 },
-  { id: 2, name: "Jane", dateOfBirth: new Date(), timeElapsed: 0 },
-  { id: 3, name: "Alice", dateOfBirth: new Date(), timeElapsed: 0 },
-  { id: 4, name: "Bob", dateOfBirth: new Date(), timeElapsed: 0 },
-  { id: 5, name: "Scotty Cryee", dateOfBirth: new Date(), timeElapsed: 0 },
-]
+  {
+    id: 1,
+    name: "John",
+    content: "Friend 1",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 4,
+  },
+  {
+    id: 2,
+    name: "Jane",
+    content: "Friend 2",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 20,
+  },
+  {
+    id: 3,
+    name: "Alice",
+    content: "Friend 3",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 3,
+  },
+  {
+    id: 4,
+    name: "Bob",
+    content: "Friend 4",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 17,
+  },
+  {
+    id: 5,
+    name: "Scotty Cryee",
+    content: "Friend 5",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 42,
+  },
+  {
+    id: 6,
+    name: "Emily",
+    content: "Friend 6",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 10,
+  },
+  {
+    id: 7,
+    name: "Michael",
+    content: "Friend 7",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 8,
+  },
+  {
+    id: 8,
+    name: "Sophia",
+    content: "Friend 8",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 15,
+  },
+  {
+    id: 9,
+    name: "Daniel",
+    content: "Friend 9",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 12,
+  },
+  {
+    id: 10,
+    name: "Olivia",
+    content: "Friend 10",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 6,
+  },
+];
 
 interface Section {
   name: string;
@@ -32,7 +97,7 @@ class AccordionView extends Component {
     activeSections: [],
   };
 
-  _renderSectionName = (section : Section) => {
+  _renderSectionName = (section: Section) => {
     return (
       <View style={styles.content}>
         <Text>{section.dateOfBirth.toString()}</Text>
@@ -40,7 +105,7 @@ class AccordionView extends Component {
     );
   };
 
-  _renderHeader = (section : Section) => {
+  _renderHeader = (section: Section) => {
     return (
       <View style={styles.header}>
         <Text style={styles.headerText}>{section.name}</Text>
@@ -48,15 +113,24 @@ class AccordionView extends Component {
     );
   };
 
-  _renderContent = (section : Section) => {
+  _renderContent = (section: Section) => {
     return (
       <View style={styles.content}>
-        <Text>{section.dateOfBirth.toString()}</Text>
+        <Text className="m-5">
+          Birthdate:
+          <Text style={{ fontWeight: "bold" }}>
+            {section.dateOfBirth.toString()}
+          </Text>
+        </Text>
+        <Text className="m-5">
+          <Text style={{ fontWeight: "bold" }}>{section.timeElapsed}</Text> days
+          since you've last met
+        </Text>
       </View>
     );
   };
 
-  _updateSections = (activeSections : Section) => {
+  _updateSections = (activeSections: Section) => {
     this.setState({ activeSections });
   };
 
@@ -69,23 +143,36 @@ class AccordionView extends Component {
         renderHeader={this._renderHeader}
         renderContent={this._renderContent}
         onChange={this._updateSections}
+        style={styles.friendElementContainer}
       />
     );
   }
 }
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: '#F5FCFF',
-    padding: 10,
+    backgroundColor: "#f9c2ff",
+    padding: 20,
+    borderColor: "black",
+    borderWidth: 0.5,
   },
   headerText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   content: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
+    width: "100%",
+    fontSize: 16,
+  },
+  friendElementContainer: {
+    // flex: 1,
+    flexDirection: "row",
+    // justifyContent: "space-between",
+    alignItems: "center",
+    fontSize: 24,
+    width: "100%",
   },
 });
 

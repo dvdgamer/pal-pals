@@ -13,22 +13,18 @@ import { View, Text, StyleSheet } from 'react-native';
 // }
 // ;
 const SECTIONS = [
-  {
-    name: 'Daviud',
-    dateOfBirth: Date,
-    timeElapsed: 0, // Replace 'number' with an actual value
-  },
-  {
-    name: 'Second',
-    content: 'Lorem ipsum...',
-  },
-];
+  { id: 1, name: "John", dateOfBirth: new Date(1969, 0, 2), timeElapsed: 0 },
+  { id: 2, name: "Jane", dateOfBirth: new Date(), timeElapsed: 0 },
+  { id: 3, name: "Alice", dateOfBirth: new Date(), timeElapsed: 0 },
+  { id: 4, name: "Bob", dateOfBirth: new Date(), timeElapsed: 0 },
+  { id: 5, name: "Scotty Cryee", dateOfBirth: new Date(), timeElapsed: 0 },
+]
 
 interface Section {
   name: string;
-  content?: string;
-  dateOfBirth?: Date;
-  timeElapsed?: number;
+  // content?: string;
+  dateOfBirth: Date;
+  timeElapsed?: string | number;
 }
 
 class AccordionView extends Component {
@@ -39,7 +35,7 @@ class AccordionView extends Component {
   _renderSectionName = (section : Section) => {
     return (
       <View style={styles.content}>
-        <Text>{section.content}</Text>
+        <Text>{section.dateOfBirth.toString()}</Text>
       </View>
     );
   };
@@ -55,7 +51,7 @@ class AccordionView extends Component {
   _renderContent = (section : Section) => {
     return (
       <View style={styles.content}>
-        <Text>{section.content}</Text>
+        <Text>{section.dateOfBirth.toString()}</Text>
       </View>
     );
   };

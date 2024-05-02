@@ -41,17 +41,19 @@ export default function FriendList() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
       <Text className="pt-5 mt-5">Friend List</Text>
-      <FlatList
+      {/* <FlatList
         data={friends}
         renderItem={renderFriend}
         keyExtractor={(item) => item.id.toString()}
         style={styles.friendText}
-      />
+      /> */}
       <AccordionView></AccordionView>
     </View>
   );
 }
 
+
+// STYLES /////////////////////////////////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
   friendElementContainer: {
     // flex: 1,

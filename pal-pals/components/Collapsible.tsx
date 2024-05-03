@@ -97,14 +97,6 @@ class AccordionView extends Component {
     activeSections: [],
   };
 
-  _renderSectionName = (section: Section) => {
-    return (
-      <View style={styles.content}>
-        <Text>{section.dateOfBirth.toString()}</Text>
-      </View>
-    );
-  };
-
   _renderHeader = (section: Section) => {
     return (
       <View style={styles.header}>
@@ -139,7 +131,6 @@ class AccordionView extends Component {
       <Accordion
         sections={SECTIONS}
         activeSections={this.state.activeSections}
-        renderSectionname={this._renderSectionName}
         renderHeader={this._renderHeader}
         renderContent={this._renderContent}
         onChange={this._updateSections}
@@ -164,7 +155,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#fff",
     width: "100%",
-    fontSize: 16,
+    fontSize: 24,
   },
   friendElementContainer: {
     // flex: 1,

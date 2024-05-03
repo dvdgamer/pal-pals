@@ -2,16 +2,7 @@ import React, { Component } from "react";
 import Accordion from "react-native-collapsible/Accordion";
 import { View, Text, StyleSheet } from "react-native";
 
-// export default function Collapsible(): React.JSX.Element{
-//   const isCollapsed = true;
 
-//   return(
-//   <Collapsible collapsed={isCollapsed}>
-//     <SomeCollapsedView />
-//   </Collapsible>
-//   )
-// }
-// ;
 const SECTIONS = [
   {
     id: 1,
@@ -86,8 +77,9 @@ const SECTIONS = [
 ];
 
 interface Section {
+  id: number;
   name: string;
-  // content?: string;
+  content?: string;
   dateOfBirth: Date;
   timeElapsed?: string | number;
 }

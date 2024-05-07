@@ -18,6 +18,7 @@ const SECTIONS = [
     content: "Friend 2",
     dateOfBirth: new Date().toLocaleDateString(),
     timeElapsed: 20,
+    timeBetweenMeetings: 52,
   },
   {
     id: 3,
@@ -100,6 +101,7 @@ class AccordionView extends Component {
   };
 
   _renderContent = (section: Section) => {
+    const timeBetweenMeetings = section.timeBetweenMeetings || 40;
     return (
       <View style={styles.content}>
         <Text className="m-5">
@@ -115,7 +117,7 @@ class AccordionView extends Component {
         <Text className="m-5">
           I'd like to meet you every{" "}
           <Text style={{ fontWeight: "bold" }}>
-            {String(section.timeBetweenMeetings)}
+            {String(timeBetweenMeetings)}
           </Text>{" "}
           days
         </Text>

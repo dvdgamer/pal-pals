@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import AccordionView from '../../components/Collapsible';
 
@@ -33,19 +34,21 @@ export default function FriendList() {
   // );
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}}>
+    <ScrollView style={{ flex: 1 }}>
+    <View style={{ justifyContent: "center", alignItems: "center"}}>
       <Text className="pt-5 mt-5">Friend List</Text>
-      {/* <FlatList
-        data={friends}
-        renderItem={renderFriend}
-        keyExtractor={(item) => item.id.toString()}
-        style={styles.friendText}
-      /> */}
       <AccordionView></AccordionView>
     </View>
+  </ScrollView>
   );
 }
 
+{/* <FlatList
+  data={friends}
+  renderItem={renderFriend}
+  keyExtractor={(item) => item.id.toString()}
+  style={styles.friendText}
+/> */}
 
 // STYLES ////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({

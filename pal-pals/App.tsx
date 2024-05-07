@@ -22,6 +22,7 @@ export default function App() {
             headerShadowVisible: false,
             headerTitle: "Dashboard",
             headerTitleAlign: "center",
+            // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (
               <ScreenHeaderBtn
                 title="Settings"
@@ -45,6 +46,7 @@ export default function App() {
           component={Settings}
           options={({ navigation }) => ({
             headerShadowVisible: true,
+            // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (
               <ScreenHeaderBtn
                 title="Settings"
@@ -52,21 +54,32 @@ export default function App() {
                 iconUrl={require("./assets/images/logoutIcon.png")}
                 dimension={{ width: 30, height: 30 }}
               />
-            )
+            ),
           })}
         />
-        <Stack.Screen name="Add a friend" component={AddFriend} />
+        <Stack.Screen
+        name="Add a friend"
+        component={AddFriend}
+        //                                 To add color to the header
+
+        // options={() => (
+        //   {
+        //     headerShadowVisible: true,
+        //     headerStyle: { backgroundColor: "#FFC9AD" },
+        //   }
+        // )}
+        />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   }
-// });
+const styles = StyleSheet.create({
+  header: {
+    // flex: 1,
+    backgroundColor: "#FFC9AD",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

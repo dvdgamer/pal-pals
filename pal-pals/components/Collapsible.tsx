@@ -111,7 +111,7 @@ const SECTIONS = [
     dateOfBirth: new Date().toLocaleDateString(),
     timeElapsed: 11,
   },
-];
+].sort((a, b) => a.name.localeCompare(b.name));
 
 interface Section {
   id: number;
@@ -181,7 +181,7 @@ class AccordionView extends Component {
 }
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#f9c2ff",
+    backgroundColor: "#fff",
     padding: 20,
     borderColor: "black",
     borderWidth: 0.5,

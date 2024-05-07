@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   titleContainer: {
-    backgroundColor: "#FFC9AD", // light orange
+    backgroundColor: "#EAFFFD", // light blue
     alignItems: "center",
     justifyContent: "center",
   },

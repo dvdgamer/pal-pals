@@ -31,7 +31,7 @@ export default function HomeScreen() {
             style={{
               // fontWeight: "bold",
               fontSize: 30,
-              color: "white",
+              color: "#EAFFFD",
             }}
           >
             +

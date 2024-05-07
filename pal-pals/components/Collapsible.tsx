@@ -76,6 +76,41 @@ const SECTIONS = [
     dateOfBirth: new Date().toLocaleDateString(),
     timeElapsed: 6,
   },
+  {
+    id: 11,
+    name: "Sophia",
+    content: "Friend 11",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 7,
+  },
+  {
+    id: 12,
+    name: "Mia",
+    content: "Friend 12",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 8,
+  },
+  {
+    id: 13,
+    name: "Isabella",
+    content: "Friend 13",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 9,
+  },
+  {
+    id: 14,
+    name: "Ava",
+    content: "Friend 14",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 10,
+  },
+  {
+    id: 15,
+    name: "Emma",
+    content: "Friend 15",
+    dateOfBirth: new Date().toLocaleDateString(),
+    timeElapsed: 11,
+  },
 ];
 
 interface Section {

@@ -10,6 +10,7 @@ const SECTIONS = [
     content: "Friend 1",
     dateOfBirth: new Date().toLocaleDateString(),
     timeElapsed: 4,
+    timeBetweenMeetings: 7,
   },
   {
     id: 2,
@@ -82,6 +83,7 @@ interface Section {
   content?: string;
   dateOfBirth: Date;
   timeElapsed?: string | number;
+  timeBetweenMeetings?: number | Date;
 }
 
 class AccordionView extends Component {
@@ -110,13 +112,22 @@ class AccordionView extends Component {
           <Text style={{ fontWeight: "bold" }}>{section.timeElapsed}</Text> days
           since you've last met
         </Text>
+        <Text className="m-5">
+          I'd like to meet you every{" "}
+          <Text style={{ fontWeight: "bold" }}>
+            {String(section.timeBetweenMeetings)}
+          </Text>{" "}
+          days
+        </Text>
       </View>
     );
   };
 
-  _updateSections = (activeSections: Section) => {
+  _updateSections = (activeSections: number[]) => {
     this.setState({ activeSections });
   };
+
+
 
   render() {
     return (

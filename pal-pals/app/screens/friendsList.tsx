@@ -8,16 +8,8 @@ import {
 } from "react-native";
 import AccordionView from '../../components/Collapsible';
 
-interface Friend {
-  id: number;
-  name: string;
-  content?: string;
-  dateOfBirth?: Date;
-  timeElapsed?: number;
-}
-
 export default function FriendList() {
-  // PREVIOUS CODE ///////////////////////////////////////////////////
+  // PREVIOUS CODE (Button icons) //////////////////////////////////////////////
 
   // const friends: Friend[] = [
   //   { id: 1, name: "John", content: "Friend 1", dateOfBirth: new Date(), timeElapsed: 4 },

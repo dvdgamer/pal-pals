@@ -1,54 +1,25 @@
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
-  TouchableOpacity,
-  Image,
   ScrollView,
 } from "react-native";
-import AccordionView from '../../components/Collapsible';
+import Accordion from '../../components/Accordion';
+import { useEffect, useState } from "react";
+import { fetchUserData } from "../../services/api";
 
 export default function FriendList() {
-  // PREVIOUS CODE (Button icons) //////////////////////////////////////////////
-
-  // const friends: Friend[] = [
-  //   { id: 1, name: "John", content: "Friend 1", dateOfBirth: new Date(), timeElapsed: 4 },
-  //   { id: 2, name: "Jane", content: "Friend 2", dateOfBirth: new Date(), timeElapsed: 20 },
-  //   { id: 3, name: "Alice", content: "Friend 3", dateOfBirth: new Date(), timeElapsed: 3 },
-  //   { id: 4, name: "Bob", content: "Friend 4", dateOfBirth: new Date(), timeElapsed: 17 },
-  //   { id: 5, name: "Scotty Cryee", content: "Friend 5", dateOfBirth: new Date(), timeElapsed: 42 },
-  // ];
-
-  // const renderFriend = ({ item }: { item: Friend }) => (
-  //   <View style={styles.friendElementContainer}>
-  //     <Text>{item.name}</Text>
-  //     <TouchableOpacity>
-  //       <Image
-  //         source={require("../../assets/images/cog.png")}
-  //         resizeMode="cover"
-  //         style={{ width: 30, height: 30, marginRight: 10 }}
-  //       />
-  //     </TouchableOpacity>
-  //   </View>
-  // );
+  const userId = 8; // Assuming a fixed userId for now
 
   return (
     <ScrollView style={{ flex: 1 }}>
-    <View style={{ justifyContent: "center", alignItems: "center"}}>
-      <Text className="pt-5 mt-5">Friend List</Text>
-      <AccordionView></AccordionView>
-    </View>
-  </ScrollView>
+      <View style={{ justifyContent: "center", alignItems: "center"}}>
+        <Text style={styles.header}>Friend List</Text>
+        <Accordion userId={userId} />
+      </View>
+    </ScrollView>
   );
 }
-
-{/* <FlatList
-  data={friends}
-  renderItem={renderFriend}
-  keyExtractor={(item) => item.id.toString()}
-  style={styles.friendText}
-/> */}
 
 // STYLES ////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
@@ -69,5 +40,9 @@ const styles = StyleSheet.create({
     fontSize: 24,
     margin: 10,
     width: "100%",
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
 });

@@ -32,7 +32,8 @@
     "description": "An app to help you find your next best friend",
     "jsEngine": "jsc",
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ]
   }
 }

@@ -1,12 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Collapsible from 'react-native-collapsible';
-import { fetchUserData } from '../services/api';
+import React, { useState, useEffect } from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import Collapsible from "react-native-collapsible";
+import { fetchUserData } from "../services/api";
 
 const Accordion = ({ userId }: { userId: number }) => {
-  const [data, setData] = useState<{ user: { name: string }, friends: {
-    dateOfBirth: string | number | Date; id: number, name: string
-}[] } | null>(null);
+  const [data, setData] = useState<{
+    user: { name: string };
+    friends: {
+      dateOfBirth: string | number | Date;
+      id: number;
+      name: string;
+    }[];
+  } | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [activeSections, setActiveSections] = useState<number[]>([]);
 
@@ -24,9 +35,9 @@ const Accordion = ({ userId }: { userId: number }) => {
   }, [userId]);
 
   const toggleSection = (index: number) => {
-    setActiveSections(prevActiveSections =>
+    setActiveSections((prevActiveSections) =>
       prevActiveSections.includes(index)
-        ? prevActiveSections.filter(sectionIndex => sectionIndex !== index)
+        ? prevActiveSections.filter((sectionIndex) => sectionIndex !== index)
         : [...prevActiveSections, index]
     );
   };
@@ -42,8 +53,6 @@ const Accordion = ({ userId }: { userId: number }) => {
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        {/* <Text style={styles.header}>Friend List</Text> */}
-        {/* <Text>User: {data.user.name}</Text> */}
         {data.friends.map((friend, index) => (
           <View key={friend.id} style={styles.section}>
             <TouchableOpacity onPress={() => toggleSection(index)}>
@@ -51,7 +60,10 @@ const Accordion = ({ userId }: { userId: number }) => {
             </TouchableOpacity>
             <Collapsible collapsed={!activeSections.includes(index)}>
               <View style={styles.sectionContent}>
-                <Text>Date of Birth: {new Date(friend.dateOfBirth).toLocaleDateString()}</Text>
+                <Text>
+                  Date of Birth:{" "}
+                  {new Date(friend.dateOfBirth).toLocaleDateString()}
+                </Text>
                 <Text>Time Elapsed: 2 months</Text>
               </View>
             </Collapsible>
@@ -68,19 +80,19 @@ export default Accordion;
 const styles = StyleSheet.create({
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 20,
   },
   section: {
     marginVertical: 10,
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     borderRadius: 5,
-    width: '90%',
+    width: "90%",
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   sectionContent: {
     fontSize: 16,

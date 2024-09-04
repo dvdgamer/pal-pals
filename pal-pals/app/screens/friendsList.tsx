@@ -5,8 +5,8 @@ import {
   ScrollView,
 } from "react-native";
 import Accordion from '../../components/Accordion';
-import { useEffect, useState } from "react";
-import { fetchUserData } from "../../services/api";
+// import { useEffect, useState } from "react";
+// import { fetchUserData } from "../../services/api";
 
 export default function FriendList() {
   const userId = 8; // Assuming a fixed userId for now

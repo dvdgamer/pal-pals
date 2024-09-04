@@ -24,9 +24,9 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
       <TouchableOpacity
-          style={styles.floatingButton}
-          onPress={() => navigation.navigate("Add a friend")}
-        >
+        style={styles.floatingButton}
+        onPress={() => navigation.navigate("Add a friend")}
+      >
         <Text
             style={{
               // fontWeight: "bold",

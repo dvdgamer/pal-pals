@@ -11,11 +11,6 @@ Expo is a powerful tool for developing and testing React Native applications. Fo
   cd /path/to/your/project
   ```
 
-3. Initialize a new Expo project by running the following command:
-  ```
-  expo init
-  ```
-
 4. Choose a template for your project (e.g., "blank" or "tabs") and follow the prompts to set up your project.
 
 5. Once the project is initialized, navigate into the project directory:

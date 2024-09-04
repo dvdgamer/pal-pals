@@ -51,8 +51,8 @@ const Accordion = ({ userId }: { userId: number }) => {
             </TouchableOpacity>
             <Collapsible collapsed={!activeSections.includes(index)}>
               <View style={styles.sectionContent}>
-                <Text>Friend ID: {friend.id}</Text>
                 <Text>Date of Birth: {new Date(friend.dateOfBirth).toLocaleDateString()}</Text>
+                <Text>Time Elapsed: 2 months</Text>
               </View>
             </Collapsible>
           </View>

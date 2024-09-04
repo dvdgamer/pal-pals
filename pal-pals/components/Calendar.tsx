@@ -1,65 +1,11 @@
-// // This works but the callendar is automatically launched
-
-// import { getMonth, getYear } from "date-fns";
-// import React, { useState } from "react";
-// import DateTimePicker from '@react-native-community/datetimepicker';
-// import range from "lodash/range";
-
-// export default function Calendar(): JSX.Element {
-//   const [startDate, setStartDate] = useState(new Date());
-//   const years = range(1990, getYear(new Date()) + 1, 1);
-//   const months = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//     "August",
-//     "September",
-//     "October",
-//     "November",
-//     "December",
-//   ];
-//   return (
-//     <DateTimePicker
-//       value={startDate}
-//       mode="date"
-//       display="default"
-//       onChange={(event: any, selectedDate: any) => {
-//         const currentDate = selectedDate || startDate;
-//         setStartDate(currentDate);
-//       }}
-//     />
-//   );
-// };
-
-
-import { getMonth, getYear } from "date-fns";
 import React, { useState } from "react";
 import { Button, View, Text } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
-import range from "lodash/range";
+
 
 export default function Calendar(): JSX.Element {
   const [startDate, setStartDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const years = range(1920, getYear(new Date()) + 1, 1);
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   return (
     <View>
       <Button title="What's their birthdate ?" onPress={() => setShowDatePicker(true)} />

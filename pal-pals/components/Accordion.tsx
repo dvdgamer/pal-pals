@@ -24,7 +24,9 @@ const Accordion = ({ userId }: { userId: number }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        console.log("starting Accordion's data fetch")
         const result = await fetchUserData(userId);
+        console.log('accordions result:', result)
         setData(result);
       } catch (err) {
         setError(err as Error);

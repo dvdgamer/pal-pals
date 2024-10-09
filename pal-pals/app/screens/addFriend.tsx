@@ -12,7 +12,6 @@ import axios from "axios";
 
 export default function AddFriend() {
   const [name, setName] = useState("");
-  // const [birthdate, setBirthdate] = useState(new Date());
   const [birthdate, setBirthdate] = useState<Date | null>(null);
 
   // Temporary hardcoded userId
@@ -20,14 +19,21 @@ export default function AddFriend() {
 
   const handleAddFriend = async () => {
     try {
+      // Delete currentBirthdate in production!
+      const currentBirthdate = birthdate || new Date(); // Use today's date if birthdate is null
       const response = await axios.post(
-        `http://172.21.215.20:3000/api/user/${userId}/friends`,
+        `https://172.21.215.20:3000/api/user/${userId}/friends`,
         {
-          name: name,
-          dateOfBirth: birthdate,
+          friendName: name,
+          dateOfBirth: currentBirthdate,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
         }
       );
-      if (response.status === 200) {
+      if (response.status === 201) {
         console.log("Success", "Friend added successfully!");
       }
     } catch (error) {

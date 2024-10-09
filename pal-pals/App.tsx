@@ -20,7 +20,8 @@ export default function App() {
           component={HomeScreen}
           options={({ navigation }) => ({
             headerShadowVisible: false,
-            headerTitle: "Dashboard",
+            headerTitle: "",
+            // headerTitle: "Dashboard",
             headerTitleAlign: "center",
             // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (

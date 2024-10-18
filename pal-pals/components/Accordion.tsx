@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
 import {
-  ScrollView,
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { fetchUserData } from "../services/api";
+import { fetchFriendsList } from "../services/api";
+import { Friend } from "../types";
 
-const Accordion = ({ userId }: { userId: number }) => {
+export default function Accordion({ userId }: { userId: number }): JSX.Element {
   const [data, setData] = useState<{
-    user: { name: string };
-    friends: {
-      dateOfBirth: string | number | Date;
-      id: number;
-      name: string;
-    }[];
+    friends: Friend[];
   } | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [activeSections, setActiveSections] = useState<number[]>([]);
@@ -24,10 +20,13 @@ const Accordion = ({ userId }: { userId: number }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("starting Accordion's data fetch")
-        const result = await fetchUserData(userId);
-        console.log('accordions result:', result)
-        setData(result);
+        const result: Friend[] = await fetchFriendsList(userId);
+        // [{id: 4, name: 'Alice Johnson', dateOfBirth: '1994-03-02T23:00:00.000Z', userId: 8}]
+
+        setData({ friends: result });
+        result.map((friend: Friend, index: number) => (
+          console.log("friend :", friend)
+        ));
       } catch (err) {
         setError(err as Error);
       }
@@ -45,7 +44,7 @@ const Accordion = ({ userId }: { userId: number }) => {
   };
 
   if (error) {
-    return <Text>Error: {(error as any).message}</Text>;
+    return <Text>Error: {error.message}</Text>;
   }
 
   if (!data) {
@@ -53,38 +52,35 @@ const Accordion = ({ userId }: { userId: number }) => {
   }
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        {data.friends.map((friend, index) => (
-          <View key={friend.id} style={styles.section}>
-            <TouchableOpacity onPress={() => toggleSection(index)}>
-              <Text style={styles.sectionTitle}>{friend.name}</Text>
-            </TouchableOpacity>
-            <Collapsible collapsed={!activeSections.includes(index)}>
-              <View style={styles.sectionContent}>
-                <Text>
-                  Date of Birth:{" "}
-                  {new Date(friend.dateOfBirth).toLocaleDateString()}
-                </Text>
-                <Text>Time Elapsed: 2 months</Text>
-              </View>
-            </Collapsible>
-          </View>
-        ))}
-      </View>
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        paddingVertical: 20,
+        marginBottom: 40,
+      }}
+    >
+      {data.friends.map((friend: Friend, index: number) => (
+        <View key={friend.id} style={styles.section}>
+          <TouchableOpacity onPress={() => toggleSection(index)}>
+            <Text style={styles.sectionTitle}>{friend.name}</Text>
+          </TouchableOpacity>
+          <Collapsible collapsed={!activeSections.includes(index)}>
+            <View style={styles.sectionContent}>
+              <Text>
+                Date of Birth:{" "}
+                {new Date(friend.dateOfBirth).toLocaleDateString()}
+              </Text>
+              <Text>Time Elapsed: 2 months</Text>
+            </View>
+          </Collapsible>
+        </View>
+      ))}
     </ScrollView>
   );
-};
-
-export default Accordion;
+}
 
 // STYLES ////////////////////////////////////////////////////////////
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginVertical: 20,
-  },
   section: {
     marginVertical: 10,
     padding: 10,

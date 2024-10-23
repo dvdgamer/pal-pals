@@ -20,19 +20,29 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
   const [error, setError] = useState<Error | null>(null);
   const [activeSections, setActiveSections] = useState<number[]>([]);
   const [popupVisible, setPopupVisible] = useState(false);
+  const [friendToDelete, setFriendToDelete] = useState<Friend | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const result: Friend[] = await fetchFriendsList(userId);
+      setData({ friends: result });
+    } catch (err) {
+      setError(err as Error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result: Friend[] = await fetchFriendsList(userId);
-        setData({ friends: result });
-      } catch (err) {
-        setError(err as Error);
-      }
-    };
-
     fetchData();
   }, [userId]);
+
+  const handleDeleteFriend = async () => {
+    if (friendToDelete) {
+      await deleteFriend(userId, friendToDelete.id);
+      setPopupVisible(false);
+      setFriendToDelete(null);
+      fetchData(); // Refresh the list after deletion
+    }
+  };
 
   const toggleSection = (index: number) => {
     setActiveSections((prevActiveSections) =>
@@ -71,7 +81,12 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
                 {new Date(friend.dateOfBirth).toLocaleDateString()}
               </Text>
               <Text>Time Elapsed: 2 months</Text>
-              <TouchableOpacity style={styles.deleteButton} onPress={() => setPopupVisible(true)}
+              <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={() => {
+                  setFriendToDelete(friend);
+                  setPopupVisible(true);
+                }}
               >
                 <Text>Delete Friend :'(</Text>
               </TouchableOpacity>
@@ -79,14 +94,11 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
           </Collapsible>
           <ConfirmationPopUp
             visible={popupVisible}
-            message="Are you sure?"
-            onConfirm={() => {
-              deleteFriend(userId, friend.id)
-              setPopupVisible(false);
-            }}
+            message="Are you certain?"
+            onConfirm={handleDeleteFriend}
             onCancel={() => {
-              console.log("Cancelled");
               setPopupVisible(false);
+              setFriendToDelete(null);
             }}
           />
         </View>
@@ -94,7 +106,6 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
     </ScrollView>
   );
 }
-
 
 // STYLES =====================================================================
 
@@ -122,5 +133,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     borderRadius: 4,
-  }
+  },
 });

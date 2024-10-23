@@ -13,6 +13,7 @@ import axios from "axios";
 export default function AddFriend() {
   const [name, setName] = useState("");
   const [birthdate, setBirthdate] = useState<Date | null>(null);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   // Temporary hardcoded userId
   let userId = 8;
@@ -29,12 +30,17 @@ export default function AddFriend() {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-          }
+            "Content-Type": "application/json",
+          },
         }
       );
       if (response.status === 201) {
         console.log("Success", "Friend added successfully!");
+        setName("");
+        setPopupVisible(true);
+        setTimeout(() => {
+          setPopupVisible(false);
+        }, 3000); // Hide popup after 3 seconds
       }
     } catch (error) {
       console.log("Error", "There was an error adding your friend.");
@@ -64,6 +70,12 @@ export default function AddFriend() {
           Add Friend
         </Text>
       </TouchableOpacity>
+
+      {popupVisible && (
+        <View style={styles.popup}>
+          <Text style={styles.popupText}>Friend added successfully!</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -92,5 +104,15 @@ const styles = StyleSheet.create({
     borderWidth: 0.1,
     position: "absolute",
     bottom: 30,
+  },
+  popup: {
+    position: 'absolute',
+    top: 50,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  popupText: {
+    color: 'white',
   },
 });

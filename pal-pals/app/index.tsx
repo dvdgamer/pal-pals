@@ -20,8 +20,7 @@ export default function HomeScreen() {
   );
 
   // TODO improve logic to make it faster
-  // Do this logic on the backend??
-
+  // Do this in the backend??
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);

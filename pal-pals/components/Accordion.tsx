@@ -9,6 +9,9 @@ import {
 import Collapsible from "react-native-collapsible";
 import { fetchFriendsList } from "../services/api";
 import { Friend } from "../types";
+import { deleteFriend } from "../services/api";
+// import DeleteFriendButton from "./DeleteFriendButton";
+import ConfirmationPopUp from "./ConfirmationPopUp";
 
 export default function Accordion({ userId }: { userId: number }): JSX.Element {
   const [data, setData] = useState<{
@@ -16,17 +19,13 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
   } | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [activeSections, setActiveSections] = useState<number[]>([]);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result: Friend[] = await fetchFriendsList(userId);
-        // [{id: 4, name: 'Alice Johnson', dateOfBirth: '1994-03-02T23:00:00.000Z', userId: 8}]
-
         setData({ friends: result });
-        result.map((friend: Friend, index: number) => (
-          console.log("friend :", friend)
-        ));
       } catch (err) {
         setError(err as Error);
       }
@@ -66,20 +65,39 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
           </TouchableOpacity>
           <Collapsible collapsed={!activeSections.includes(index)}>
             <View style={styles.sectionContent}>
+              {/* <DeleteFriendButton friendId={friend.id} userId={userId} /> */}
               <Text>
                 Date of Birth:{" "}
                 {new Date(friend.dateOfBirth).toLocaleDateString()}
               </Text>
               <Text>Time Elapsed: 2 months</Text>
+              <TouchableOpacity style={styles.deleteButton} onPress={() => setPopupVisible(true)}
+              >
+                <Text>Delete Friend :'(</Text>
+              </TouchableOpacity>
             </View>
           </Collapsible>
+          <ConfirmationPopUp
+            visible={popupVisible}
+            message="Are you sure?"
+            onConfirm={() => {
+              deleteFriend(userId, friend.id)
+              setPopupVisible(false);
+            }}
+            onCancel={() => {
+              console.log("Cancelled");
+              setPopupVisible(false);
+            }}
+          />
         </View>
       ))}
     </ScrollView>
   );
 }
 
-// STYLES ////////////////////////////////////////////////////////////
+
+// STYLES =====================================================================
+
 const styles = StyleSheet.create({
   section: {
     marginVertical: 10,
@@ -96,4 +114,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingTop: 10,
   },
+  deleteButton: {
+    alignSelf: "flex-end",
+    padding: 5,
+    margin: 5,
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: "black",
+    borderRadius: 4,
+  }
 });

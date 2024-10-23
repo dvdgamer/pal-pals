@@ -7,7 +7,7 @@ export const fetchUserData = async (userId: number) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
-    console.log("fetchUserData successful")
+    console.log("fetchUserData successful");
     return result;
   } catch (error) {
     throw error;
@@ -16,12 +16,32 @@ export const fetchUserData = async (userId: number) => {
 
 export const fetchFriendsList = async (userId: number) => {
   try {
-    const response = await fetch(`https://172.21.215.20:3000/api/user/${userId}/friends`);
+    const response = await fetch(
+      `https://172.21.215.20:3000/api/user/${userId}/friends`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
     return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteFriend = async (userId: number, friendId: number) => {
+  try {
+    const response = await fetch(
+      `https://172.21.215.20:3000/api/user/${userId}/friend/${friendId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    console.log("deleteFriend successful");
+    return true;
   } catch (error) {
     throw error;
   }

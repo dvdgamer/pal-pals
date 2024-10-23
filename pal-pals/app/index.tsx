@@ -9,7 +9,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Panel from "../components/Panel";
-import { fetchUserData } from "../services/api";
+import { fetchFriendsList } from "../services/api";
 import { Friend } from "../types";
 // import Settings from "./screens/settings";
 
@@ -24,7 +24,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
-      const userData = await fetchUserData(8);
+      const userData = await fetchFriendsList(8);
       const friendsList = userData.friends;
       const today = new Date();
 

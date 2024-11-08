@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { Link } from "@react-navigation/native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function RegisterScreen(): JSX.Element {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigation = useNavigation<any>();
 
   const checkInput = (): boolean => {
     if (!username.trim()) {
-      Alert.alert('Input Error', 'Username is required');
+      Alert.alert("Input Error", "Username is required");
       return false;
     }
     if (!email.trim()) {
-      Alert.alert('Input Error', 'Email is required');
+      Alert.alert("Input Error", "Email is required");
       return false;
     }
     if (!password.trim()) {
-      Alert.alert('Input Error', 'Password is required');
+      Alert.alert("Input Error", "Password is required");
       return false;
     }
     return true;
@@ -25,7 +37,7 @@ export default function RegisterScreen(): JSX.Element {
   const handleRegister = () => {
     if (checkInput()) {
       // Add registration logic here
-      Alert.alert('Registration Successful', `Welcome, ${username}!`);
+      Alert.alert("Registration Successful", `Welcome, ${username}!`);
     }
   };
 
@@ -54,24 +66,28 @@ export default function RegisterScreen(): JSX.Element {
       />
       <Text>Eventual google auth</Text>
       <Button title="Register" onPress={handleRegister} />
+      <Button
+        title="Already have an account? "
+        onPress={() => navigation.navigate("Sign in")}
+      />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 16,
   },
   title: {
     fontSize: 24,
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 8,

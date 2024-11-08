@@ -1,12 +1,8 @@
-import { useState } from "react";
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
 import { useNavigation } from "@react-navigation/native";
 
-
 const Home = () => {
-
   const navigation = useNavigation();
 
   return (
@@ -14,15 +10,26 @@ const Home = () => {
       name="Home"
       options={{
         headerShadowVisible: false,
-        headerTitle: 'Home',
+        headerTitle: "Home",
         headerRight: () => (
-          <ScreenHeaderBtn title="Right Button" onClick={() => console.log('Button clicked')} iconUrl={undefined} dimension={undefined} />
+          <ScreenHeaderBtn
+            title="Right Button"
+            onClick={() => console.log("Button clicked")}
+            iconUrl={undefined}
+            dimension={undefined}
+          />
         ),
         headerLeft: () => (
-          <ScreenHeaderBtn title="Left Button" onClick={() => console.log('Button clicked')} />
-        )
-      }} />
-    );
-}
+          <ScreenHeaderBtn
+            title="Left Button"
+            onClick={() => console.log("Button clicked")}
+            iconUrl={undefined}
+            dimension={undefined}
+          />
+        ),
+      }}
+    />
+  );
+};
 
 export default Home;

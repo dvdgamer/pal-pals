@@ -14,7 +14,7 @@ import { Friend } from "../types";
 // import Settings from "./screens/settings";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
   const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>(
     []
   );

@@ -1,5 +1,6 @@
 import Home from "./app/home";
 import HomeScreen from "./app/index";
+import SignIn from "./app/screens/signIn";
 import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
@@ -32,7 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
-          name="HomeScreen"
+          name="Home Screen"
           component={HomeScreen}
           options={({ navigation }) => ({
             headerShadowVisible: false,
@@ -86,6 +87,7 @@ export default function App() {
           //   }
           // )}
         />
+        <Stack.Screen name="Sign in" component={SignIn} />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>
     </NavigationContainer>

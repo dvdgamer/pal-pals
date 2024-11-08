@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "../../components/Calendar";
 import axios from "axios";
 
@@ -43,7 +43,7 @@ export default function AddFriend() {
         }, 3000); // Hide popup after 3 seconds
       }
     } catch (error) {
-      console.log("Error", "There was an error adding your friend.");
+      console.log("Error", "There was an error adding your friend :", error);
     }
   };
 

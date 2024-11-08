@@ -12,10 +12,10 @@ import Accordion from "../../components/Accordion";
 export default function FriendList() {
   const userId = 8; // Assuming a fixed userId for now
 
-  const { height, width } = Dimensions.get("window");
-  useEffect(() => {
-    console.log(`Window dimensions: height=${height}, width=${width}`);
-  }, []);
+  const { height } = Dimensions.get("window");
+  // useEffect(() => {
+  //   console.log(`Window dimensions: height=${height}`);
+  // }, []);
 
   return (
     <SafeAreaView >

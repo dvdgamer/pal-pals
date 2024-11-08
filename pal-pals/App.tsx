@@ -3,15 +3,31 @@ import HomeScreen from "./app/index";
 import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
+import RegisterScreen from './app/screens/register';
 import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
 // import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  // useEffect(() => {
+  //   const checkToken = async () => {
+  //     const token = await AsyncStorage.getItem("jwt");
+  //     if (token) {
+  //       console.log("Token found:", token);
+  //       // Perform actions with the token, e.g., set user state, navigate to the main app screen, etc.
+  //     } else {
+  //       console.log('No token found');
+  //       // Navigate to the login screen
+  //     }
+  //   };
+  //   checkToken();
+  // }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -44,7 +60,7 @@ export default function App() {
         />
         <Stack.Screen
           name="Settings"
-          component={Settings}
+          component={RegisterScreen}
           options={({ navigation }) => ({
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
@@ -59,16 +75,16 @@ export default function App() {
           })}
         />
         <Stack.Screen
-        name="Add a friend"
-        component={AddFriend}
-        //                                 To add color to the header
+          name="Add a friend"
+          component={AddFriend}
+          //                                 To add color to the header
 
-        // options={() => (
-        //   {
-        //     headerShadowVisible: true,
-        //     headerStyle: { backgroundColor: "#FFC9AD" },
-        //   }
-        // )}
+          // options={() => (
+          //   {
+          //     headerShadowVisible: true,
+          //     headerStyle: { backgroundColor: "#FFC9AD" },
+          //   }
+          // )}
         />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>

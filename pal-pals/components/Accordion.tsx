@@ -80,7 +80,7 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
                 Date of Birth:{" "}
                 {new Date(friend.dateOfBirth).toLocaleDateString()}
               </Text>
-              <Text>Time Elapsed: 2 months</Text>
+              {/* <Text>Time Elapsed: 2 months</Text> */}
               <TouchableOpacity
                 style={styles.deleteButton}
                 onPress={() => {

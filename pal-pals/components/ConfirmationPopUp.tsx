@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Modal } from "react-native";
+import { View, Text, Button, StyleSheet, Modal, TouchableOpacity } from "react-native";
 
 interface ConfirmationPopUpProps {
   visible: boolean;
@@ -25,8 +25,12 @@ export default function ConfirmationPopUp({
         <View style={styles.modalContainer}>
           <Text style={styles.message}>{message}</Text>
           <View style={styles.actions}>
-            <Button title="Confirm" onPress={onConfirm} />
-            <Button title="Cancel" onPress={onCancel} />
+          <TouchableOpacity style={styles.button} onPress={onConfirm}>
+            <Text style={styles.buttonText}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onCancel}>
+            <Text>Cancel</Text>
+          </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -57,5 +61,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+  },
+  button: {
+    backgroundColor: '#ff0000', // Red background for delete button
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });

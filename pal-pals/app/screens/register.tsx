@@ -1,4 +1,3 @@
-import { Link } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   View,
@@ -10,16 +9,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { register } from "../../services/api";
 
 export default function RegisterScreen(): JSX.Element {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigation = useNavigation<any>();
 
   const checkInput = (): boolean => {
-    if (!username.trim()) {
+    if (!name.trim()) {
       Alert.alert("Input Error", "Username is required");
       return false;
     }
@@ -36,8 +36,8 @@ export default function RegisterScreen(): JSX.Element {
 
   const handleRegister = () => {
     if (checkInput()) {
-      // Add registration logic here
-      Alert.alert("Registration Successful", `Welcome, ${username}!`);
+      register(name, email, password);
+      Alert.alert("Registration Successful", `Welcome, ${name}!`);
     }
   };
 
@@ -46,9 +46,9 @@ export default function RegisterScreen(): JSX.Element {
       <Text style={styles.title}>Register</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
       />
       <TextInput
         style={styles.input}

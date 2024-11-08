@@ -4,7 +4,7 @@ import SignIn from "./app/screens/signIn";
 import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
-import RegisterScreen from './app/screens/register';
+import RegisterScreen from "./app/screens/register";
 import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
 // import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
@@ -16,19 +16,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createStackNavigator();
 
 export default function App() {
-  // useEffect(() => {
-  //   const checkToken = async () => {
-  //     const token = await AsyncStorage.getItem("jwt");
-  //     if (token) {
-  //       console.log("Token found:", token);
-  //       // Perform actions with the token, e.g., set user state, navigate to the main app screen, etc.
-  //     } else {
-  //       console.log('No token found');
-  //       // Navigate to the login screen
-  //     }
-  //   };
-  //   checkToken();
-  // }, []);
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem("jwt");
+      if (token) {
+        console.log("Token found:", token);
+        // Perform actions with the token, e.g., set user state, navigate to the main app screen, etc.
+      } else {
+        console.log("No token found");
+        // Navigate to the login screen
+      }
+    };
+    checkToken();
+  }, []);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
@@ -43,8 +43,8 @@ export default function App() {
             // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (
               <ScreenHeaderBtn
-                title="Settings"
-                onClick={() => navigation.navigate("Settings")}
+                title="Register"
+                onClick={() => navigation.navigate("Register")}
                 iconUrl={require("./assets/images/cog.png")}
                 dimension={{ width: 30, height: 30 }}
               />
@@ -60,14 +60,14 @@ export default function App() {
           })}
         />
         <Stack.Screen
-          name="Settings"
+          name="Register"
           component={RegisterScreen}
           options={({ navigation }) => ({
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (
               <ScreenHeaderBtn
-                title="Settings"
+                title="Register"
                 onClick={() => navigation}
                 iconUrl={require("./assets/images/logoutIcon.png")}
                 dimension={{ width: 30, height: 30 }}
@@ -75,18 +75,7 @@ export default function App() {
             ),
           })}
         />
-        <Stack.Screen
-          name="Add a friend"
-          component={AddFriend}
-          //                                 To add color to the header
-
-          // options={() => (
-          //   {
-          //     headerShadowVisible: true,
-          //     headerStyle: { backgroundColor: "#FFC9AD" },
-          //   }
-          // )}
-        />
+        <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Sign in" component={SignIn} />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>

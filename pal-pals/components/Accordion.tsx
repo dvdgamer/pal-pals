@@ -96,6 +96,7 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
             visible={popupVisible}
             message="Are you certain?"
             onConfirm={handleDeleteFriend}
+            confirmText="Delete"
             onCancel={() => {
               setPopupVisible(false);
               setFriendToDelete(null);

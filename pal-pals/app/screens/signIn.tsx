@@ -25,12 +25,13 @@ export default function SignInScreen(): JSX.Element {
     if (checkInput()) {
       login(email, password)
       Alert.alert("Registration Successful", `Welcome, ${email}!`);
+      navigation.navigate('Home Screen');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>Sign In</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"

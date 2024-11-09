@@ -1,3 +1,9 @@
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import Home from "./app/home";
 import HomeScreen from "./app/index";
 import SignIn from "./app/screens/signIn";
@@ -5,46 +11,52 @@ import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
 import RegisterScreen from "./app/screens/register";
+import LogoutButton from "./components/LogoutIcon";
 import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
-// import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const checkToken = async () => {
       const token = await AsyncStorage.getItem("jwt");
       if (token) {
         console.log("Token found:", token);
-        // Perform actions with the token, e.g., set user state, navigate to the main app screen, etc.
+        setIsLoggedIn(true);
       } else {
         console.log("No token found");
-        // Navigate to the login screen
+        setIsLoggedIn(false);
       }
+      setIsLoading(false);
     };
     checkToken();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
         <Stack.Screen
           name="Home Screen"
           component={HomeScreen}
           options={({ navigation }) => ({
             headerShadowVisible: false,
             headerTitle: "",
-            // headerTitle: "Dashboard",
             headerTitleAlign: "center",
-            // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (
               <ScreenHeaderBtn
-                title="Register"
-                onClick={() => navigation.navigate("Register")}
+                title="Settings"
+                onClick={() => navigation.navigate("Settings")}
                 iconUrl={require("./assets/images/cog.png")}
                 dimension={{ width: 30, height: 30 }}
               />
@@ -62,22 +74,16 @@ export default function App() {
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
-          options={({ navigation }) => ({
+          options={{
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
-            headerRight: () => (
-              <ScreenHeaderBtn
-                title="Register"
-                onClick={() => navigation}
-                iconUrl={require("./assets/images/logoutIcon.png")}
-                dimension={{ width: 30, height: 30 }}
-              />
-            ),
-          })}
+            headerRight: () => <LogoutButton />,
+          }}
         />
         <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Sign in" component={SignIn} />
         <Stack.Screen name="Friends List" component={FriendsList} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -89,5 +95,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFC9AD",
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

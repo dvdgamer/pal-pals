@@ -1,11 +1,52 @@
-import { View, Text, StyleSheet, TextInput, SafeAreaView, TouchableOpacity } from "react-native";
-import { useState } from "react";
-import DatePicker from "react-datepicker";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+import { useEffect, useState } from "react";
 import Calendar from "../../components/Calendar";
+import axios from "axios";
 
 export default function AddFriend() {
   const [name, setName] = useState("");
-  const [startDate, setStartDate] = useState(null);
+  const [birthdate, setBirthdate] = useState<Date | null>(null);
+  const [popupVisible, setPopupVisible] = useState(false);
+
+  // Temporary hardcoded userId
+  let userId = 8;
+
+  const handleAddFriend = async () => {
+    try {
+      // Delete currentBirthdate in production!
+      const currentBirthdate = birthdate || new Date(); // Use today's date if birthdate is null
+      const response = await axios.post(
+        `https://172.21.215.20:3000/api/user/${userId}/friends`,
+        {
+          friendName: name,
+          dateOfBirth: currentBirthdate,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 201) {
+        console.log("Success", "Friend added successfully!");
+        setName("");
+        setPopupVisible(true);
+        setTimeout(() => {
+          setPopupVisible(false);
+        }, 3000); // Hide popup after 3 seconds
+      }
+    } catch (error) {
+      console.log("Error", "There was an error adding your friend :", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={{ textAlign: "left" }}>Your friend's name:</Text>
@@ -16,23 +57,26 @@ export default function AddFriend() {
         autoCorrect={false}
       />
       <Text>Your friend's name is:</Text>
-      <Text style= {{ fontWeight: "bold", fontSize: 24}}> { name }</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 24 }}> {name}</Text>
       <Text>Add their birthday:</Text>
-      {/* <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date: Date)}
-        dateFormat="dd/MM/yyyy"
-      /> */}
       <View>
-        <Calendar />
+        <Calendar onDateChange={setBirthdate} />
       </View>
-      <TouchableOpacity style={styles.addFriendButton}>
-          <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
-            Add Friend
-          </Text>
-        </TouchableOpacity>
-    </View>
+      <TouchableOpacity
+        style={styles.addFriendButton}
+        onPress={handleAddFriend}
+      >
+        <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
+          Add Friend
+        </Text>
+      </TouchableOpacity>
 
+      {popupVisible && (
+        <View style={styles.popup}>
+          <Text style={styles.popupText}>Friend added successfully!</Text>
+        </View>
+      )}
+    </View>
   );
 }
 
@@ -60,5 +104,15 @@ const styles = StyleSheet.create({
     borderWidth: 0.1,
     position: "absolute",
     bottom: 30,
-  }
+  },
+  popup: {
+    position: 'absolute',
+    top: 50,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: 10,
+    borderRadius: 5,
+  },
+  popupText: {
+    color: 'white',
+  },
 });

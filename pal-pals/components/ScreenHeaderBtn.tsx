@@ -1,5 +1,4 @@
-import { TouchableOpacity, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity, Text, Image, StyleSheet } from "react-native";
 
 interface ScreenHeaderBtnProps {
   title: string;
@@ -8,24 +7,25 @@ interface ScreenHeaderBtnProps {
   dimension: any;
 }
 
-const ScreenHeaderBtn: React.FC<ScreenHeaderBtnProps> = ({
-  iconUrl,
-  dimension,
-  onClick,
-}) => {
-  const navigation = useNavigation();
 
+const ScreenHeaderBtn = ({ onClick, iconUrl, dimension }: ScreenHeaderBtnProps) => {
   return (
     <TouchableOpacity onPress={onClick}>
       <Image
-      source={iconUrl}
-      resizeMode="cover"
-      style={dimension}
-      className="my-4 mx-5"
-       />
+        source={iconUrl}
+        resizeMode="cover"
+        style={[dimension, styles.image]}
+      />
       {/* <Text>{title}</Text> */}
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    marginVertical: 16,
+    marginHorizontal: 20,
+  },
+});
 
 export default ScreenHeaderBtn;

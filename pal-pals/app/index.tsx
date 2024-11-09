@@ -1,42 +1,145 @@
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Panel from "../components/Panel";
+import { fetchFriendsList } from "../services/api";
+import { Friend } from "../types";
 // import Settings from "./screens/settings";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
+  const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>(
+    []
+  );
+
+  // TODO improve logic to make it faster
+  // Do this in the backend??
+  useEffect(() => {
+    const fetchAndProcessFriends = async () => {
+      const userData = await fetchFriendsList(8);
+      const friendsList = userData.friends;
+      const today = new Date();
+
+      const upcomingBirthdays = friendsList.filter((friend: Friend) => {
+        const birthdate = new Date(friend.dateOfBirth);
+        const nextBirthday = new Date(
+          today.getFullYear(),
+          birthdate.getMonth(),
+          birthdate.getDate()
+        );
+
+        if (nextBirthday < today) {
+          nextBirthday.setFullYear(today.getFullYear() + 1);
+        }
+
+        const diffInDays = Math.ceil(
+          (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+        );
+
+        return diffInDays <= 45;
+      });
+
+      setUpcomingBirthdaysList(upcomingBirthdays);
+    };
+
+    fetchAndProcessFriends();
+  }, []);
+
+  // export default function HomeScreen() {
+  //   const navigation = useNavigation();
+  //   const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>([]);
+
+  //   useEffect(() => {
+  //     const fetchAndProcessFriends = async () => {
+  //       const data = await fetchUserData(8);
+  //       const friendsList = data.friends;
+  //       const today = new Date();
+  //       const upcomingBirthdays: Friend[] = friendsList.filter((friend: Friend) => {
+  //         const birthdate = new Date(friend.dateOfBirth);
+  //         const nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+
+  //         // If the next birthday is before today, it means the birthday is next year
+  //         if (nextBirthday < today) {
+  //           nextBirthday.setFullYear(today.getFullYear() + 1);
+  //         }
+
+  //         const diffInDays = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+  //         return diffInDays <= 45;
+  //       });
+
+  //       setUpcomingBirthdaysList(upcomingBirthdays);
+  //     };
+
+  //     fetchAndProcessFriends();
+  //   }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
-          <Panel />
-          <Panel />
-          <Panel />
+          <Panel
+            panelTitle="Around the corner"
+            list={upcomingBirthdaysList}
+            innerView={
+              <View>
+                {upcomingBirthdaysList.map((friend: Friend) => {
+                  const today = new Date();
+                  const birthdate = new Date(friend.dateOfBirth);
+                  const nextBirthday = new Date(
+                    today.getFullYear(),
+                    birthdate.getMonth(),
+                    birthdate.getDate()
+                  );
+
+                  if (nextBirthday < today) {
+                    nextBirthday.setFullYear(today.getFullYear() + 1);
+                  }
+
+                  const diffInDays = Math.ceil(
+                    (nextBirthday.getTime() - today.getTime()) /
+                      (1000 * 60 * 60 * 24)
+                  );
+
+                  return (
+                    <Text key={friend.id}>
+                      {friend.name} - {diffInDays} days until birthday
+                    </Text>
+                  );
+                })}
+              </View>
+            }
+          />
+          {/* <Panel />
+          <Panel /> */}
         </View>
         <View style={styles.container}>
           <StatusBar style="auto" />
           <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
           <Text style={{ fontWeight: "bold" }}>This is the Dashboard</Text>
-          <View>
-
-          </View>
+          <View></View>
         </View>
       </ScrollView>
       <TouchableOpacity
-          style={styles.floatingButton}
-          onPress={() => navigation.navigate("Add a friend")}
-        >
+        style={styles.floatingButton}
+        onPress={() => navigation.navigate("Add a friend")}
+      >
         <Text
-            style={{
-              // fontWeight: "bold",
-              fontSize: 30,
-              color: "white",
-            }}
-          >
-            +
-          </Text>
-        </TouchableOpacity>
+          style={{
+            // fontWeight: "bold",
+            fontSize: 30,
+            color: "#EAFFFD",
+          }}
+        >
+          +
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

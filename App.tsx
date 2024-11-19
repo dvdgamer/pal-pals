@@ -84,22 +84,15 @@ export default function App() {
         <Stack.Screen
           name="Settings"
           component={Settings}
-          options={({ navigation }) => ({
+          options={() => ({
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () =>  <LogoutIcon />
-            // (
-              // <ScreenHeaderBtn
-              //   title="Register"
-              //   onClick={() => logout()}
-              //   iconUrl={require("./assets/images/logoutIcon.png")}
-              //   dimension={{ width: 30, height: 30 }}
-              // />
-            // ),
           })}
         />
-        <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Sign in" component={SignIn} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -48,7 +48,7 @@ export default function SignInScreen(): JSX.Element {
       <Button title="Sign in" onPress={handleLogin} />
       <Button
         title="New here? Register "
-        onPress={() => navigation.navigate("RegisterScreen")}
+        onPress={() => navigation.navigate("Register")}
       />
     </View>
   );

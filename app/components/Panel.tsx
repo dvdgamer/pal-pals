@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { Friend } from "../types";
+import { Friend } from "../../types/types";
 
 interface PanelProps {
   panelTitle: string;
@@ -52,5 +52,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#EAFFFD", // light blue
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 16,
   },
 });

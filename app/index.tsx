@@ -81,9 +81,12 @@ export default function HomeScreen() {
                   );
 
                   return (
-                    <Text key={friend.id}>
-                      {friend.name} - {diffInDays} days until birthday
-                    </Text>
+                    <View key={friend.id} style={styles.friendContainer}>
+                      <Text style={styles.title}>
+                        {friend.name}
+                      </Text>
+                      <Text style={styles.daysTillBirthday}>{diffInDays} days until birthday</Text>
+                    </View>
                   );
                 })}
               </View>
@@ -136,5 +139,17 @@ const styles = StyleSheet.create({
     width: 70,
     justifyContent: "center",
     alignItems: "center",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "800"
+  },
+  daysTillBirthday: {
+    fontSize: 16,
+    fontWeight: "600"
+  },
+  friendContainer: {
+    margin: 8,
+    padding: 5,
   },
 });

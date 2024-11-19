@@ -20,11 +20,11 @@ export default function HomeScreen() {
   );
 
   // TODO improve logic to make it faster
-  // Do this in the backend??
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);
-      const friendsList = userData.friends;
+      const friendsList = userData;
+      console.log("friendsList", friendsList)
       const today = new Date();
 
       const upcomingBirthdays = friendsList.filter((friend: Friend) => {
@@ -51,34 +51,6 @@ export default function HomeScreen() {
 
     fetchAndProcessFriends();
   }, []);
-
-  // export default function HomeScreen() {
-  //   const navigation = useNavigation();
-  //   const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>([]);
-
-  //   useEffect(() => {
-  //     const fetchAndProcessFriends = async () => {
-  //       const data = await fetchUserData(8);
-  //       const friendsList = data.friends;
-  //       const today = new Date();
-  //       const upcomingBirthdays: Friend[] = friendsList.filter((friend: Friend) => {
-  //         const birthdate = new Date(friend.dateOfBirth);
-  //         const nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
-
-  //         // If the next birthday is before today, it means the birthday is next year
-  //         if (nextBirthday < today) {
-  //           nextBirthday.setFullYear(today.getFullYear() + 1);
-  //         }
-
-  //         const diffInDays = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-  //         return diffInDays <= 45;
-  //       });
-
-  //       setUpcomingBirthdaysList(upcomingBirthdays);
-  //     };
-
-  //     fetchAndProcessFriends();
-  //   }, []);
 
   return (
     <View style={{ flex: 1 }}>

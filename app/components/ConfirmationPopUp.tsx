@@ -4,6 +4,7 @@ import { View, Text, Button, StyleSheet, Modal, TouchableOpacity } from "react-n
 interface ConfirmationPopUpProps {
   visible: boolean;
   message: string;
+  confirmText: string,
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -12,6 +13,7 @@ export default function ConfirmationPopUp({
   visible,
   message,
   onConfirm,
+  confirmText,
   onCancel,
 }: ConfirmationPopUpProps): JSX.Element {
   return (
@@ -26,7 +28,7 @@ export default function ConfirmationPopUp({
           <Text style={styles.message}>{message}</Text>
           <View style={styles.actions}>
           <TouchableOpacity style={styles.button} onPress={onConfirm}>
-            <Text style={styles.buttonText}>Delete</Text>
+            <Text style={styles.buttonText}>{confirmText}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={onCancel}>
             <Text>Cancel</Text>

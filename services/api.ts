@@ -38,6 +38,17 @@ export const login = async (email: string, password: string) => {
   }
 };
 
+export const logout = async () => {
+  try {
+    await AsyncStorage.removeItem("jwt");
+    console.log("Logged out and token removed");
+  } catch (error) {
+    console.error("Logout failed", error);
+    throw error;
+  }
+};
+
+
 export const fetchUserData = async (userId: number) => {
   try {
     const response = await api.get(`/users/${userId}`);

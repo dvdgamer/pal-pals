@@ -1,6 +1,6 @@
 import { TouchableOpacity, View, StyleSheet } from "react-native";
-import { deleteFriend } from "../services/api";
-import React from 'react';
+import { deleteFriend } from "../../services/api";
+
 
 interface DeleteFriendButtonProps {
   userId: number;

@@ -30,7 +30,7 @@ export default function SignInScreen(): JSX.Element {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>Sign In</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -48,7 +48,7 @@ export default function SignInScreen(): JSX.Element {
       <Button title="Sign in" onPress={handleLogin} />
       <Button
         title="New here? Register "
-        onPress={() => navigation.navigate("Sign in")}
+        onPress={() => navigation.navigate("RegisterScreen")}
       />
     </View>
   );

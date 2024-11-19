@@ -4,7 +4,7 @@ import ScreenHeaderBtn from './ScreenHeaderBtn';
 import { logout } from '../../services/api';
 import ConfirmationPopUp from './ConfirmationPopUp';
 
-export default function LogoutButton() {
+export default function LogoutIcon() {
   const navigation = useNavigation<any>();
   const [popupVisible, setPopupVisible] = useState(false);
 
@@ -33,7 +33,7 @@ export default function LogoutButton() {
       <ScreenHeaderBtn
         title="Logout"
         onClick={() => setPopupVisible(true)}
-        iconUrl={require('../assets/images/logoutIcon.png')}
+        iconUrl={require('../../assets/images/logoutIcon.png')}
         dimension={{ width: 30, height: 30 }}
       />
     </>

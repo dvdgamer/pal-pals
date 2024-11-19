@@ -6,6 +6,7 @@ import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
 import RegisterScreen from "./app/screens/register";
+import LogoutIcon from "./app/components/LogoutIcon";
 import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
 // import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
@@ -86,14 +87,15 @@ export default function App() {
           options={({ navigation }) => ({
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
-            headerRight: () => (
-              <ScreenHeaderBtn
-                title="Register"
-                onClick={() => logout()}
-                iconUrl={require("./assets/images/logoutIcon.png")}
-                dimension={{ width: 30, height: 30 }}
-              />
-            ),
+            headerRight: () =>  <LogoutIcon />
+            // (
+              // <ScreenHeaderBtn
+              //   title="Register"
+              //   onClick={() => logout()}
+              //   iconUrl={require("./assets/images/logoutIcon.png")}
+              //   dimension={{ width: 30, height: 30 }}
+              // />
+            // ),
           })}
         />
         <Stack.Screen name="Add a friend" component={AddFriend} />

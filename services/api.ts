@@ -1,8 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { API_BASE_URL_DEV } from "@env";
+
+// console.log("API_BASE_URL_DEV:", API_BASE_URL_DEV);
 
 const api = axios.create({
-  baseURL: "https://172.21.215.20:3000/api",
+  baseURL: API_BASE_URL_DEV,
   timeout: 10000, // Sets timeout to 10 secs
   headers: {
     "Content-Type": "application/json",
@@ -18,6 +21,7 @@ export const register = async (
     const response = await api.post("/users/register", {name, password, email,})
     const { token } = response.data;
     await AsyncStorage.setItem("jwt", token);
+    console.log("Registration successful and token stored");
   } catch (error) {
     console.error("Registration failed", error);
     throw error;
@@ -63,6 +67,7 @@ export const fetchUserData = async (userId: number) => {
 export const fetchFriendsList = async (userId: number) => {
   try {
     const response = await api.get(`/user/${userId}/friends`);
+    console.log("fetchFriendsList successful");
     return response.data;
   } catch (error) {
     console.error("Error fetching friends list:", error);

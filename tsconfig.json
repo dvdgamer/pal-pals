@@ -1,15 +1,3 @@
-// {
-//   "extends": "expo/tsconfig.base",
-//   "compilerOptions": {
-//     "strict": true,
-//     "baseUrl": "./app/index.tsx",
-//     "typeRoots": ["./types", "./node_modules/@types/react-native"],
-//     "paths": {
-//       "@/*": ["app/*"]
-//     },
-//   }
-// }
-
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
@@ -17,9 +5,10 @@
     "baseUrl": "./",
     "typeRoots": ["./node_modules/@types/react-native", "./types"],
     "paths": {
-      "@/*": ["app/*"]
+      "@/*": ["app/*"],
+      "@env": ["node_modules/react-native-dotenv"]
     },
     // "types": ["react", "react-native"]
   },
-  "include": ["app/**/*"]
+  "include": ["app/**/*", "types/**/*"]
 }

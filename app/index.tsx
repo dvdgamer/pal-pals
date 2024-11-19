@@ -5,12 +5,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import Panel from "./components/Panel";
+import { Friend } from "../types/types";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import Panel from "../components/Panel";
 import { fetchFriendsList } from "../services/api";
-import { Friend } from "../types";
+import { useNavigation } from "@react-navigation/native";
 // import Settings from "./screens/settings";
 
 export default function HomeScreen() {
@@ -23,6 +23,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);
+      console.log(userData);
       const friendsList = userData;
       console.log("friendsList", friendsList)
       const today = new Date();

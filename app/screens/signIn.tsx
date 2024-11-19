@@ -25,6 +25,8 @@ export default function SignInScreen(): JSX.Element {
     if (checkInput()) {
       login(email, password)
       Alert.alert("Registration Successful", `Welcome, ${email}!`);
+      console.log("Registration Successful", `Welcome, ${email}!`);
+      navigation.navigate("Home Screen")
     }
   };
 

@@ -7,7 +7,7 @@ import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
 import RegisterScreen from "./app/screens/register";
 import LogoutIcon from "./app/components/LogoutIcon";
-import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
+import ScreenHeaderBtn from "./app/components/ScreenHeaderBtn";
 // import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";

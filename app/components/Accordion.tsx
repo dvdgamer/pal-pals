@@ -6,12 +6,10 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { Friend } from "../../types/types";
 import Collapsible from "react-native-collapsible";
-import { fetchFriendsList } from "../services/api";
-import { Friend } from "../types";
-import { deleteFriend } from "../services/api";
-// import DeleteFriendButton from "./DeleteFriendButton";
 import ConfirmationPopUp from "./ConfirmationPopUp";
+import { fetchFriendsList, deleteFriend } from "../../services/api";
 
 export default function Accordion({ userId }: { userId: number }): JSX.Element {
   const [data, setData] = useState<{
@@ -26,6 +24,7 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
     try {
       const result: Friend[] = await fetchFriendsList(userId);
       setData({ friends: result });
+      console.log("data :", data)
     } catch (err) {
       setError(err as Error);
     }
@@ -68,6 +67,9 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
         marginBottom: 40,
       }}
     >
+      <>
+        {console.log("data", data)}
+      </>
       {data.friends.map((friend: Friend, index: number) => (
         <View key={friend.id} style={styles.section}>
           <TouchableOpacity onPress={() => toggleSection(index)}>
@@ -95,6 +97,7 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
           <ConfirmationPopUp
             visible={popupVisible}
             message="Are you certain?"
+            confirmText="Delete"
             onConfirm={handleDeleteFriend}
             onCancel={() => {
               setPopupVisible(false);

@@ -7,15 +7,15 @@ import {
   Dimensions,
   SafeAreaView,
 } from "react-native";
-import Accordion from "../../components/Accordion";
+import Accordion from "../components/Accordion";
 
 export default function FriendList() {
   const userId = 8; // Assuming a fixed userId for now
 
   const { height } = Dimensions.get("window");
-  // useEffect(() => {
-  //   console.log(`Window dimensions: height=${height}`);
-  // }, []);
+  useEffect(() => {
+    console.log(`Window dimensions: height=${height}`);
+  }, []);
 
   return (
     <SafeAreaView >

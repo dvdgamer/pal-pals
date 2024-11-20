@@ -8,6 +8,7 @@
       "@/*": ["app/*"],
       "@env": ["node_modules/react-native-dotenv"]
     },
+    "module": "esnext",
     // "types": ["react", "react-native"]
   },
   "include": ["app/**/*", "types/**/*"]

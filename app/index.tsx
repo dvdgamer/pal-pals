@@ -1,25 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native';
-import BirthdayPanel from './components/Panels/BirthdayPanel';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
+
+import BirthdayPanel from "./components/Panels/BirthdayPanel";
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
 
-  // useEffect(() => {}, []);
-
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <>
           <BirthdayPanel />
         </>
         <View style={styles.container}>
           <StatusBar style="auto" />
-          <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
-          <Text style={{ fontWeight: "bold" }}>This is the Dashboard</Text>
-          <View></View>
+          {/* <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
+          <Text style={{ fontWeight: "bold" }}>This is the Dashboard</Text> */}
         </View>
       </ScrollView>
       <TouchableOpacity
@@ -58,5 +61,9 @@ const styles = StyleSheet.create({
     width: 70,
     justifyContent: "center",
     alignItems: "center",
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    paddingBottom: 100,
   },
 });

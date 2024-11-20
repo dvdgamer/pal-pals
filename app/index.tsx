@@ -1,31 +1,22 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import Panel from "./components/Panel";
-import { Friend } from "../types/types";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { fetchFriendsList } from "../services/api";
-import { useNavigation } from "@react-navigation/native";
-// import Settings from "./screens/settings";
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import Panel from './components/Panels/Panel';
+import { Friend } from '../types/types';
+import { StatusBar } from 'expo-status-bar';
+import { fetchFriendsList } from '../services/api';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
-  const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>(
-    []
-  );
+  const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>([]);
 
-  // TODO improve logic to make it faster
+  // TODO Make this its own component in the BirthdatePanel.tsx
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);
       console.log(userData);
       const friendsList = userData;
-      console.log("friendsList", friendsList)
+      console.log("friendsList", friendsList);
       const today = new Date();
 
       const upcomingBirthdays = friendsList.filter((friend: Friend) => {
@@ -53,6 +44,31 @@ export default function HomeScreen() {
     fetchAndProcessFriends();
   }, []);
 
+  const renderItem = ({ item }: { item: Friend }) => {
+    const today = new Date();
+    const birthdate = new Date(item.dateOfBirth);
+    const nextBirthday = new Date(
+      today.getFullYear(),
+      birthdate.getMonth(),
+      birthdate.getDate()
+    );
+
+    if (nextBirthday < today) {
+      nextBirthday.setFullYear(today.getFullYear() + 1);
+    }
+
+    const diffInDays = Math.ceil(
+      (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
+
+    return (
+      <View key={item.id} style={styles.friendContainer}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.daysTillBirthday}>{diffInDays} days until birthday</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -60,6 +76,7 @@ export default function HomeScreen() {
           <Panel
             panelTitle="Around the corner"
             list={upcomingBirthdaysList}
+            renderItem={renderItem}
             innerView={
               <View>
                 {upcomingBirthdaysList.map((friend: Friend) => {
@@ -92,8 +109,6 @@ export default function HomeScreen() {
               </View>
             }
           />
-          {/* <Panel />
-          <Panel /> */}
         </View>
         <View style={styles.container}>
           <StatusBar style="auto" />
@@ -108,7 +123,6 @@ export default function HomeScreen() {
       >
         <Text
           style={{
-            // fontWeight: "bold",
             fontSize: 30,
             color: "#EAFFFD",
           }}
@@ -141,12 +155,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    fontSize: 18,
-    fontWeight: "800"
+    fontSize: 24,
+    fontWeight: "bold",
   },
   daysTillBirthday: {
     fontSize: 16,
-    fontWeight: "600"
+    fontWeight: "600",
   },
   friendContainer: {
     margin: 8,

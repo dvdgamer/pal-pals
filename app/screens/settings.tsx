@@ -1,9 +1,25 @@
+import { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { logout } from "../../services/api";
+import { useNavigation } from "@react-navigation/native";
+import ConfirmationPopUp from "../components/ConfirmationPopUp";
 
 export default function Settings() {
   const MainText = ({ children }: { children: React.ReactNode }) => (
     <Text style={styles.settingsMain}>{children}</Text>
   );
+  const navigation = useNavigation<any>();
+  const [popupVisible, setPopupVisible] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigation.navigate("Sign in");
+      setPopupVisible(false);
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -27,11 +43,21 @@ export default function Settings() {
         <MainText>Report an issue</MainText>
       </View>
       <View style={{ flex: 1, alignItems: "center" }}>
-        <TouchableOpacity style={styles.logOutButton}>
+        <TouchableOpacity
+          style={styles.logOutButton}
+          onPress={() => setPopupVisible(true)}
+        >
           <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
             Log out
           </Text>
         </TouchableOpacity>
+        <ConfirmationPopUp
+          visible={popupVisible}
+          message="You want to log out?"
+          confirmText="Log out"
+          onConfirm={handleLogout}
+          onCancel={() => setPopupVisible(false)}
+        />
       </View>
     </View>
   );

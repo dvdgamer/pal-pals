@@ -1,3 +1,4 @@
+import React from "react";
 import Home from "./app/home";
 import HomeScreen from "./app/index";
 import SignIn from "./app/screens/signIn";
@@ -5,33 +6,54 @@ import Settings from "./app/screens/settings";
 import AddFriend from "./app/screens/addFriend";
 import FriendsList from "./app/screens/friendsList";
 import RegisterScreen from "./app/screens/register";
-import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
+import LogoutIcon from "./app/components/LogoutIcon";
+import ScreenHeaderBtn from "./app/components/ScreenHeaderBtn";
 // import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { logout } from "./services/api";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const checkToken = async () => {
-      const token = await AsyncStorage.getItem("jwt");
-      if (token) {
-        console.log("Token found:", token);
-        // Perform actions with the token, e.g., set user state, navigate to the main app screen, etc.
-      } else {
-        console.log("No token found");
-        // Navigate to the login screen
+      try {
+        const token = await AsyncStorage.getItem("jwt");
+        if (token) {
+          console.log("Token found:", token);
+          setIsLoggedIn(true);
+        } else {
+          console.log("No token found");
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Error checking token:", error);
+        Alert.alert("Error", "An error occurred while checking the token.");
+      } finally {
+        setIsLoading(false);
       }
     };
     checkToken();
   }, []);
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+       <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
         <Stack.Screen
           name="Home Screen"
           component={HomeScreen}
@@ -43,8 +65,8 @@ export default function App() {
             // headerStyle: { backgroundColor: "#FFC9AD" },
             headerRight: () => (
               <ScreenHeaderBtn
-                title="Register"
-                onClick={() => navigation.navigate("Register")}
+                title="Settings"
+                onClick={() => navigation.navigate("Settings")}
                 iconUrl={require("./assets/images/cog.png")}
                 dimension={{ width: 30, height: 30 }}
               />
@@ -60,23 +82,17 @@ export default function App() {
           })}
         />
         <Stack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={({ navigation }) => ({
+          name="Settings"
+          component={Settings}
+          options={() => ({
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
-            headerRight: () => (
-              <ScreenHeaderBtn
-                title="Register"
-                onClick={() => navigation}
-                iconUrl={require("./assets/images/logoutIcon.png")}
-                dimension={{ width: 30, height: 30 }}
-              />
-            ),
+            headerRight: () =>  <LogoutIcon />
           })}
         />
-        <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Sign in" component={SignIn} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Add a friend" component={AddFriend} />
         <Stack.Screen name="Friends List" component={FriendsList} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -85,9 +101,13 @@ export default function App() {
 
 const styles = StyleSheet.create({
   header: {
-    // flex: 1,
     backgroundColor: "#FFC9AD",
     alignItems: "center",
     justifyContent: "center",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

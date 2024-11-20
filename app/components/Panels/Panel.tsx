@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { Friend } from "../types";
+import { Friend } from "../../../types/types";
 
 interface PanelProps {
   panelTitle: string;
   list?: Array<Friend>;
   innerView?: JSX.Element;
+  renderItem: ({ item }: { item: Friend }) => JSX.Element;
 }
 // When generating the Dashboard fetch once friendsList and send each item to
 // its respective panel lists
 
-export default function Panel({ panelTitle, list, innerView }: PanelProps) {
+export default function Panel({ panelTitle, list, innerView, renderItem }: PanelProps) {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -18,10 +19,7 @@ export default function Panel({ panelTitle, list, innerView }: PanelProps) {
       <View>
         <FlatList
           data={list}
-          renderItem={({ item }) => {
-            // console.log("item", item);
-            // return <Text>{item.name}</Text>;
-          }}
+          renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
         />
         <View>
@@ -44,13 +42,15 @@ const styles = StyleSheet.create({
   },
   titleText: {
     padding: 10,
-    fontSize: 20,
+    fontSize: 24,
     height: 44,
     fontWeight: "bold",
+    marginBottom: 10
   },
   titleContainer: {
     backgroundColor: "#EAFFFD", // light blue
     alignItems: "center",
     justifyContent: "center",
+    marginBottom: 16,
   },
 });

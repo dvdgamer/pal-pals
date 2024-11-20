@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
-import Calendar from "../../components/Calendar";
+import Calendar from "../components/Calendar";
 import axios from "axios";
 
 export default function AddFriend() {

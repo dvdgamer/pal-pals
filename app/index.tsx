@@ -1,30 +1,22 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import Panel from "../components/Panel";
-import { fetchFriendsList } from "../services/api";
-import { Friend } from "../types";
-// import Settings from "./screens/settings";
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import Panel from './components/Panels/Panel';
+import { Friend } from '../types/types';
+import { StatusBar } from 'expo-status-bar';
+import { fetchFriendsList } from '../services/api';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
-  const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>(
-    []
-  );
+  const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>([]);
 
-  // TODO improve logic to make it faster
-  // Do this in the backend??
+  // TODO Make this its own component in the BirthdatePanel.tsx
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);
-      const friendsList = userData.friends;
+      console.log(userData);
+      const friendsList = userData;
+      console.log("friendsList", friendsList);
       const today = new Date();
 
       const upcomingBirthdays = friendsList.filter((friend: Friend) => {
@@ -52,33 +44,30 @@ export default function HomeScreen() {
     fetchAndProcessFriends();
   }, []);
 
-  // export default function HomeScreen() {
-  //   const navigation = useNavigation();
-  //   const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>([]);
+  const renderItem = ({ item }: { item: Friend }) => {
+    const today = new Date();
+    const birthdate = new Date(item.dateOfBirth);
+    const nextBirthday = new Date(
+      today.getFullYear(),
+      birthdate.getMonth(),
+      birthdate.getDate()
+    );
 
-  //   useEffect(() => {
-  //     const fetchAndProcessFriends = async () => {
-  //       const data = await fetchUserData(8);
-  //       const friendsList = data.friends;
-  //       const today = new Date();
-  //       const upcomingBirthdays: Friend[] = friendsList.filter((friend: Friend) => {
-  //         const birthdate = new Date(friend.dateOfBirth);
-  //         const nextBirthday = new Date(today.getFullYear(), birthdate.getMonth(), birthdate.getDate());
+    if (nextBirthday < today) {
+      nextBirthday.setFullYear(today.getFullYear() + 1);
+    }
 
-  //         // If the next birthday is before today, it means the birthday is next year
-  //         if (nextBirthday < today) {
-  //           nextBirthday.setFullYear(today.getFullYear() + 1);
-  //         }
+    const diffInDays = Math.ceil(
+      (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+    );
 
-  //         const diffInDays = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-  //         return diffInDays <= 45;
-  //       });
-
-  //       setUpcomingBirthdaysList(upcomingBirthdays);
-  //     };
-
-  //     fetchAndProcessFriends();
-  //   }, []);
+    return (
+      <View key={item.id} style={styles.friendContainer}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.daysTillBirthday}>{diffInDays} days until birthday</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -87,6 +76,7 @@ export default function HomeScreen() {
           <Panel
             panelTitle="Around the corner"
             list={upcomingBirthdaysList}
+            renderItem={renderItem}
             innerView={
               <View>
                 {upcomingBirthdaysList.map((friend: Friend) => {
@@ -108,16 +98,17 @@ export default function HomeScreen() {
                   );
 
                   return (
-                    <Text key={friend.id}>
-                      {friend.name} - {diffInDays} days until birthday
-                    </Text>
+                    <View key={friend.id} style={styles.friendContainer}>
+                      <Text style={styles.title}>
+                        {friend.name}
+                      </Text>
+                      <Text style={styles.daysTillBirthday}>{diffInDays} days until birthday</Text>
+                    </View>
                   );
                 })}
               </View>
             }
           />
-          {/* <Panel />
-          <Panel /> */}
         </View>
         <View style={styles.container}>
           <StatusBar style="auto" />
@@ -132,7 +123,6 @@ export default function HomeScreen() {
       >
         <Text
           style={{
-            // fontWeight: "bold",
             fontSize: 30,
             color: "#EAFFFD",
           }}
@@ -163,5 +153,17 @@ const styles = StyleSheet.create({
     width: 70,
     justifyContent: "center",
     alignItems: "center",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  daysTillBirthday: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  friendContainer: {
+    margin: 8,
+    padding: 5,
   },
 });

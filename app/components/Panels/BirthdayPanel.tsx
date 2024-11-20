@@ -2,16 +2,18 @@ import Panel from "./Panel";
 import { Friend } from "types/types";
 import { useEffect, useRef, useState } from "react";
 import { fetchFriendsList } from "services/api";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { useDebugHeight } from "@/hooks/useDebugHeight";
 
 export default function BirthdayPanel(): JSX.Element {
   const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>(
     []
   );
-  const scrollViewRef = useRef<View>(null);
 
-  useDebugHeight(scrollViewRef, "BirthdayPanel");
+  // const { height } = Dimensions.get("window");
+  // useEffect(() => {
+  //   console.log(`Window dimensions: height=${height}`);
+  // }, []);
 
   useEffect(() => {
     const fetchAndProcessFriends = async () => {

@@ -8,17 +8,25 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 
-import BirthdayPanel from "./components/Panels/BirthdayPanel";
+import BirthdayPanel from "../components/Panels/BirthdayPanel";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useDebugHeight } from "@/hooks/useDebugHeight";
+import { useRef } from "react";
+// const BirthdayPanel = React.lazy(() => import("./components/Panels/BirthdayPanel"));
 
+//TODO improve performance
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
+  const scrollViewRef = useRef<View>(null);
+
+  useDebugHeight(scrollViewRef, "index");
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <>
+        <View>
           <BirthdayPanel />
-        </>
+        </View>
         <View style={styles.container}>
           <StatusBar style="auto" />
           {/* <Text style={{ fontWeight: "bold" }}>index.tsx/HomeScreen</Text>
@@ -38,7 +46,7 @@ export default function HomeScreen() {
           +
         </Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
 

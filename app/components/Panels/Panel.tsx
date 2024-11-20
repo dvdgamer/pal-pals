@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { View, Text, StyleSheet, FlatList, ScrollView } from "react-native";
 import { Friend } from "../../../types/types";
 
 interface PanelProps {
@@ -12,7 +12,7 @@ interface PanelProps {
 
 export default function Panel({ panelTitle, list, innerView, renderItem }: PanelProps) {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>{panelTitle}</Text>
       </View>
@@ -26,7 +26,7 @@ export default function Panel({ panelTitle, list, innerView, renderItem }: Panel
           {innerView}
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

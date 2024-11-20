@@ -1,20 +1,22 @@
 import Panel from "./Panel";
 import { Friend } from "types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchFriendsList } from "services/api";
 import { View, StyleSheet, Text } from "react-native";
+import { useDebugHeight } from "@/hooks/useDebugHeight";
 
 export default function BirthdayPanel(): JSX.Element {
   const [upcomingBirthdaysList, setUpcomingBirthdaysList] = useState<Friend[]>(
     []
   );
+  const scrollViewRef = useRef<View>(null);
+
+  useDebugHeight(scrollViewRef, "BirthdayPanel");
 
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);
-      // console.log(userData);
       const friendsList = userData;
-      // console.log("friendsList", friendsList);
       const today = new Date();
 
       const upcomingBirthdays = friendsList.filter((friend: Friend) => {
@@ -62,46 +64,50 @@ export default function BirthdayPanel(): JSX.Element {
     return (
       <View key={item.id} style={styles.friendContainer}>
         <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.daysTillBirthday}>{diffInDays} days until birthday</Text>
+        <Text style={styles.daysTillBirthday}>
+          {diffInDays} days until birthday
+        </Text>
       </View>
     );
   };
 
-  return (<Panel
-    panelTitle="Around the corner"
-    list={upcomingBirthdaysList}
-    renderItem={renderItem}
-    innerView={
-      <View>
-        {upcomingBirthdaysList.map((friend: Friend) => {
-          const today = new Date();
-          const birthdate = new Date(friend.dateOfBirth);
-          const nextBirthday = new Date(
-            today.getFullYear(),
-            birthdate.getMonth(),
-            birthdate.getDate()
-          );
+  return (
+    <Panel
+      panelTitle="Around the corner"
+      list={upcomingBirthdaysList}
+      renderItem={renderItem}
+      innerView={
+        <View>
+          {upcomingBirthdaysList.map((friend: Friend) => {
+            const today = new Date();
+            const birthdate = new Date(friend.dateOfBirth);
+            const nextBirthday = new Date(
+              today.getFullYear(),
+              birthdate.getMonth(),
+              birthdate.getDate()
+            );
 
-          if (nextBirthday < today) {
-            nextBirthday.setFullYear(today.getFullYear() + 1);
-          }
+            if (nextBirthday < today) {
+              nextBirthday.setFullYear(today.getFullYear() + 1);
+            }
 
-          const diffInDays = Math.ceil(
-            (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-          );
+            const diffInDays = Math.ceil(
+              (nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+            );
 
-          return (
-            <View key={friend.id} style={styles.friendContainer}>
-              <Text style={styles.title}>{friend.name}</Text>
-              <Text style={styles.daysTillBirthday}>
-                {diffInDays} days until birthday
-              </Text>
-            </View>
-          );
-        })}
-      </View>
-    }
-  />)
+            return (
+              <View key={friend.id} style={styles.friendContainer}>
+                <Text style={styles.title}>{friend.name}</Text>
+                <Text style={styles.daysTillBirthday}>
+                  {diffInDays} days until birthday
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      }
+    />
+  );
 }
 
 const styles = StyleSheet.create({
@@ -117,4 +123,4 @@ const styles = StyleSheet.create({
     margin: 8,
     padding: 5,
   },
-})
+});

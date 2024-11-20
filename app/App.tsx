@@ -1,20 +1,21 @@
 import React from "react";
-import Home from "./app/home";
-import HomeScreen from "./app/index";
-import SignIn from "./app/screens/signIn";
-import Settings from "./app/screens/settings";
-import AddFriend from "./app/screens/addFriend";
-import FriendsList from "./app/screens/friendsList";
-import RegisterScreen from "./app/screens/register";
-import LogoutIcon from "./app/components/LogoutIcon";
-import ScreenHeaderBtn from "./app/components/ScreenHeaderBtn";
+// import Home from "./app/home";
+import HomeScreen from "./screens/index";
+import SignIn from "./screens/signIn";
+import Settings from "./screens/settings";
+import AddFriend from "./screens/addFriend";
+import FriendsList from "./screens/friendsList";
+import RegisterScreen from "./screens/register";
+import LogoutIcon from "./components/LogoutIcon";
+import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
 // import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { logout } from "./services/api";
+import { logout } from "../services/api";
+
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,7 @@ export default function App() {
   }
 
   return (
+    // TODO place this in Navigation.tsx
     <NavigationContainer>
        <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
         <Stack.Screen
@@ -67,7 +69,7 @@ export default function App() {
               <ScreenHeaderBtn
                 title="Settings"
                 onClick={() => navigation.navigate("Settings")}
-                iconUrl={require("./assets/images/cog.png")}
+                iconUrl={require("../assets/images/cog.png")}
                 dimension={{ width: 30, height: 30 }}
               />
             ),
@@ -75,7 +77,7 @@ export default function App() {
               <ScreenHeaderBtn
                 title="Friends List"
                 onClick={() => navigation.navigate("Friends List")}
-                iconUrl={require("./assets/images/contacts.png")}
+                iconUrl={require("../assets/images/contacts.png")}
                 dimension={{ width: 35, height: 35 }}
               />
             ),

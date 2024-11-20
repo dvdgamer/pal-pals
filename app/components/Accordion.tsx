@@ -24,7 +24,7 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
     try {
       const result: Friend[] = await fetchFriendsList(userId);
       setData({ friends: result });
-      console.log("data :", data)
+      console.log("data :", data);
     } catch (err) {
       setError(err as Error);
     }
@@ -67,9 +67,6 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
         marginBottom: 40,
       }}
     >
-      <>
-        {console.log("data", data)}
-      </>
       {data.friends.map((friend: Friend, index: number) => (
         <View key={friend.id} style={styles.section}>
           <TouchableOpacity onPress={() => toggleSection(index)}>

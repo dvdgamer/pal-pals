@@ -67,7 +67,6 @@ export const fetchUserData = async (userId: number) => {
 export const fetchFriendsList = async (userId: number) => {
   try {
     const response = await api.get(`/user/${userId}/friends`);
-    console.log("fetchFriendsList successful");
     return response.data;
   } catch (error) {
     console.error("Error fetching friends list:", error);

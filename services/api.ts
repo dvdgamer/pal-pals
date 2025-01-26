@@ -2,7 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { API_BASE_URL_DEV } from "@env";
 
-// console.log("API_BASE_URL_DEV:", API_BASE_URL_DEV);
+
+console.log("API_BASE_URL_DEV:", API_BASE_URL_DEV);
 
 const api = axios.create({
   baseURL: API_BASE_URL_DEV,

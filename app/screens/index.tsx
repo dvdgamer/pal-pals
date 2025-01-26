@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -14,12 +14,6 @@ import BirthdayPanel from '../components/Panels/BirthdayPanel';
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
-
-  // Debug the screen height
-  const { height } = Dimensions.get("window");
-  useEffect(() => {
-    console.log(`Window dimensions: height=${height}`);
-  }, []);
 
   // Event handler for the floating button
   const handleAddFriendPress = () => {
@@ -78,6 +72,6 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     paddingBottom: 100,
-    height: Dimensions.get("window").height
+    height: Dimensions.get("window").height * 0.6
   },
 });

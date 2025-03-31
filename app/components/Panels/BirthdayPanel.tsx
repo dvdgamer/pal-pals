@@ -10,11 +10,6 @@ export default function BirthdayPanel(): JSX.Element {
     []
   );
 
-  // const { height } = Dimensions.get("window");
-  // useEffect(() => {
-  //   console.log(`Window dimensions: height=${height}`);
-  // }, []);
-
   useEffect(() => {
     const fetchAndProcessFriends = async () => {
       const userData = await fetchFriendsList(8);

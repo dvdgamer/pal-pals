@@ -37,3 +37,6 @@ Expo is a powerful tool for developing and testing React Native applications. Fo
 10. Your app should now be running on your chosen device or emulator. Make changes to your code, and Expo will automatically reload the app with the updated changes.
 
 That's it! You have successfully launched Expo and can now start developing your React Native app. Happy coding!
+
+
+!! Add bump to confirm you've been together!!

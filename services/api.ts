@@ -1,12 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import { API_BASE_URL_DEV } from "@env";
+import { API_BASE_URL_PROD } from "@env";
 
 
-console.log("API_BASE_URL_DEV:", API_BASE_URL_DEV);
+console.log("API_BASE_URL_PROD:", API_BASE_URL_PROD);
 
 const api = axios.create({
-  baseURL: API_BASE_URL_DEV,
+  baseURL: API_BASE_URL_PROD,
   timeout: 10000, // Sets timeout to 10 secs
   headers: {
     "Content-Type": "application/json",
@@ -15,11 +15,11 @@ const api = axios.create({
 
 export const register = async (
   name: string,
-  password: string,
-  email: string
+  email: string,
+  password: string
 ) => {
   try {
-    const response = await api.post("/users/register", {name, password, email,})
+    const response = await api.post("/users/register", {name, password, email})
     const { token } = response.data;
     await AsyncStorage.setItem("jwt", token);
     console.log("Registration successful and token stored");

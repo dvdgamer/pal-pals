@@ -44,12 +44,15 @@ export default function RegisterScreen(): JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
+
+      <Text style={styles.label}>Name</Text>
       <TextInput
         style={styles.input}
         placeholder="Name"
         value={name}
         onChangeText={setName}
       />
+      <Text style={styles.label}>Email</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -57,6 +60,7 @@ export default function RegisterScreen(): JSX.Element {
         onChangeText={setEmail}
         keyboardType="email-address"
       />
+      <Text style={styles.label}>Password</Text>
       <TextInput
         style={styles.input}
         placeholder="Password"
@@ -84,6 +88,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 16,
     textAlign: "center",
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 4,
   },
   input: {
     height: 40,

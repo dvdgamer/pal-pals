@@ -1,4 +1,4 @@
-import { TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { Pressable, Image, StyleSheet } from "react-native";
 
 interface ScreenHeaderBtnProps {
   title: string;
@@ -10,14 +10,14 @@ interface ScreenHeaderBtnProps {
 
 const ScreenHeaderBtn = ({ onClick, iconUrl, dimension }: ScreenHeaderBtnProps) => {
   return (
-    <TouchableOpacity onPress={onClick}>
+    <Pressable onPress={onClick}>
       <Image
         source={iconUrl}
         resizeMode="cover"
         style={[dimension, styles.image]}
       />
       {/* <Text>{title}</Text> */}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

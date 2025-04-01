@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { logout } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
 import ConfirmationPopUp from "../components/ConfirmationPopUp";
@@ -43,14 +43,14 @@ export default function Settings() {
         <MainText>Report an issue</MainText>
       </View>
       <View style={{ flex: 1, alignItems: "center" }}>
-        <TouchableOpacity
+        <Pressable
           style={styles.logOutButton}
           onPress={() => setPopupVisible(true)}
         >
           <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
             Log out
           </Text>
-        </TouchableOpacity>
+        </Pressable>
         <ConfirmationPopUp
           visible={popupVisible}
           message="You want to log out?"

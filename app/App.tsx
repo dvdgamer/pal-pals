@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { logout } from "../services/api";
 
-
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -30,10 +29,10 @@ export default function App() {
         if (token) {
           console.log("Token found:", token);
           setIsLoggedIn(true);
-        } if (token == undefined) {
-          setIsLoggedIn(false);
         }
-        else {
+        if (token == undefined) {
+          setIsLoggedIn(false);
+        } else {
           console.log("No token found");
           setIsLoggedIn(false);
         }
@@ -58,7 +57,7 @@ export default function App() {
   return (
     // TODO place this in Navigation.tsx
     <NavigationContainer>
-       <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
+      <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
         <Stack.Screen
           name="Home Screen"
           component={HomeScreen}
@@ -92,7 +91,7 @@ export default function App() {
           options={() => ({
             headerShadowVisible: true,
             // headerStyle: { backgroundColor: "#FFC9AD" },
-            headerRight: () =>  <LogoutIcon />
+            headerRight: () => <LogoutIcon />,
           })}
         />
         <Stack.Screen name="Sign in" component={SignIn} />

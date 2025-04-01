@@ -3,7 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   Dimensions,
 } from 'react-native';
@@ -32,7 +32,7 @@ export default function HomeScreen() {
           <Text style={{ fontWeight: "bold" }}>This is the Dashboard</Text> */}
         </View>
       </ScrollView>
-      <TouchableOpacity
+      <Pressable
         style={styles.floatingButton}
         onPress={handleAddFriendPress}
       >
@@ -44,7 +44,7 @@ export default function HomeScreen() {
         >
           +
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     </SafeAreaView>
   );
 }

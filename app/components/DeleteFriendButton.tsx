@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, StyleSheet } from "react-native";
+import { Pressable, View, StyleSheet } from "react-native";
 import { deleteFriend } from "../../services/api";
 
 
@@ -7,16 +7,16 @@ interface DeleteFriendButtonProps {
   friendId: number;
 }
 
-export default function DeleteFriendButton({ userId, friendId }: DeleteFriendButtonProps) {
+export default function DeleteFriendButton({ friendId }: DeleteFriendButtonProps) {
   const handlePress = async () => {
-    await deleteFriend(userId, friendId);
+    await deleteFriend(friendId);
   };
 
   return (
     <View>
-      <TouchableOpacity onPress={handlePress} style={styles.deleteButton}>
+      <Pressable onPress={handlePress} style={styles.deleteButton}>
         X
-      </TouchableOpacity>
+      </Pressable>
     </View>
   )
 }

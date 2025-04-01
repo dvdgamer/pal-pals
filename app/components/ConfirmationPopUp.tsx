@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button, StyleSheet, Modal, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Modal, Pressable } from "react-native";
 
 interface ConfirmationPopUpProps {
   visible: boolean;
@@ -27,12 +27,12 @@ export default function ConfirmationPopUp({
         <View style={styles.modalContainer}>
           <Text style={styles.message}>{message}</Text>
           <View style={styles.actions}>
-          <TouchableOpacity style={styles.button} onPress={onConfirm}>
+          <Pressable style={styles.button} onPress={onConfirm}>
             <Text style={styles.buttonText}>{confirmText}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onCancel}>
+          </Pressable>
+          <Pressable onPress={onCancel}>
             <Text>Cancel</Text>
-          </TouchableOpacity>
+          </Pressable>
           </View>
         </View>
       </View>

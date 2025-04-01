@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Alert, Button, Text, TextInput, View, StyleSheet } from "react-native";
+import { Alert, Button, Text, TextInput, View, StyleSheet, Pressable } from "react-native";
 import { login } from "../../services/api";
 
 export default function SignInScreen(): JSX.Element {
@@ -38,7 +38,7 @@ export default function SignInScreen(): JSX.Element {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
+        inputMode="email"
       />
       <TextInput
         style={styles.input}

@@ -3,7 +3,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   Alert,
 } from "react-native";
 import { useState } from "react";
@@ -53,11 +53,11 @@ export default function AddFriend() {
       <View>
         <Calendar onDateChange={setBirthdate} />
       </View>
-      <TouchableOpacity style={styles.addFriendButton} onPress={addFriend}>
+      <Pressable style={styles.addFriendButton} onPress={addFriend}>
         <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
           Add Friend
         </Text>
-      </TouchableOpacity>
+      </Pressable>
 
       {popupVisible && (
         <View style={styles.popup}>

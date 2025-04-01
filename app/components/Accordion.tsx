@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { Friend } from "../../types/types";
 import Collapsible from "react-native-collapsible";
 import ConfirmationPopUp from "./ConfirmationPopUp";
@@ -32,9 +26,7 @@ export default function Accordion(): JSX.Element {
 
   useEffect(() => {
     fetchData();
-  },
-  // [userId]
-);
+  }, []);
 
   const handleDeleteFriend = async () => {
     if (friendToDelete) {
@@ -71,9 +63,9 @@ export default function Accordion(): JSX.Element {
     >
       {data.friends.map((friend: Friend, index: number) => (
         <View key={friend.id} style={styles.section}>
-          <TouchableOpacity onPress={() => toggleSection(index)}>
+          <Pressable onPress={() => toggleSection(index)}>
             <Text style={styles.sectionTitle}>{friend.name}</Text>
-          </TouchableOpacity>
+          </Pressable>
           <Collapsible collapsed={!activeSections.includes(index)}>
             <View style={styles.sectionContent}>
               {/* <DeleteFriendButton friendId={friend.id} userId={userId} /> */}
@@ -82,7 +74,7 @@ export default function Accordion(): JSX.Element {
                 {new Date(friend.dateOfBirth).toLocaleDateString()}
               </Text>
               {/* <Text>Time Elapsed: 2 months</Text> */}
-              <TouchableOpacity
+              <Pressable
                 style={styles.deleteButton}
                 onPress={() => {
                   setFriendToDelete(friend);
@@ -90,7 +82,7 @@ export default function Accordion(): JSX.Element {
                 }}
               >
                 <Text>Delete Friend :'(</Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </Collapsible>
           <ConfirmationPopUp

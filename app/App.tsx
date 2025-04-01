@@ -30,7 +30,7 @@ export default function App() {
           console.log("Token found:", token);
           setIsLoggedIn(true);
         }
-        if (token == undefined) {
+        else if (token == undefined) {
           setIsLoggedIn(false);
         } else {
           console.log("No token found");

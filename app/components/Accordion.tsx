@@ -58,7 +58,7 @@ export default function Accordion(): JSX.Element {
       contentContainerStyle={{
         flexGrow: 1,
         paddingVertical: 20,
-        marginBottom: 40,
+        marginBottom: 100,
       }}
     >
       {data.friends.map((friend: Friend, index: number) => (
@@ -107,9 +107,12 @@ const styles = StyleSheet.create({
   section: {
     marginVertical: 10,
     padding: 10,
+    paddingHorizontal: 50,
+    margin: 20,
     backgroundColor: "#f0f0f0",
     borderRadius: 5,
-    width: "90%",
+    width: "100%",
+    alignSelf: "center",
   },
   sectionTitle: {
     fontSize: 18,

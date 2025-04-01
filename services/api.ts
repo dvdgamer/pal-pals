@@ -2,9 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { API_BASE_URL_PROD } from "@env";
 
-
-console.log("API_BASE_URL_PROD:", API_BASE_URL_PROD);
-
 const api = axios.create({
   baseURL: API_BASE_URL_PROD,
   timeout: 10000, // Sets timeout to 10 secs
@@ -19,9 +16,14 @@ export const register = async (
   password: string
 ) => {
   try {
-    const response = await api.post("/users/register", {name, password, email})
-    const { token } = response.data;
+    const response = await api.post("/users/register", {
+      name,
+      password,
+      email,
+    });
+    const { token, user } = response.data;
     await AsyncStorage.setItem("jwt", token);
+    await AsyncStorage.setItem("userId", user.id);
     console.log("Registration successful and token stored");
   } catch (error) {
     console.error("Registration failed", error);
@@ -33,14 +35,20 @@ export const login = async (email: string, password: string) => {
   try {
     console.log("Logging in with:", { email, password });
     const response = await api.post("/users/login", { email, password });
-    const { token } = response.data;
+    const { token, user } = response.data;
     await AsyncStorage.setItem("jwt", token);
+    await AsyncStorage.setItem("userId", user.id);
     console.log("Logged in and token stored");
     return response.data;
   } catch (error) {
     console.error("Login failed", error);
     throw error;
   }
+};
+
+const getUserId = async () => {
+  const returnedUserId = await AsyncStorage.getItem("userId");
+  return returnedUserId;
 };
 
 export const logout = async () => {
@@ -53,10 +61,13 @@ export const logout = async () => {
   }
 };
 
-
-export const fetchUserData = async (userId: number) => {
+export const fetchUserData = async () => {
   try {
-    const response = await api.get(`/users/${userId}`);
+    const resolvedUserId = await getUserId();
+    if (!resolvedUserId) {
+      throw new Error("UserID not found");
+    }
+    const response = await api.get(`/users/${resolvedUserId}`);
     console.log("fetchUserData successful");
     return response.data;
   } catch (error) {
@@ -65,9 +76,13 @@ export const fetchUserData = async (userId: number) => {
   }
 };
 
-export const fetchFriendsList = async (userId: number) => {
+export const fetchFriendsList = async () => {
   try {
-    const response = await api.get(`/user/${userId}/friends`);
+    const resolvedUserId = await getUserId();
+    if (!resolvedUserId) {
+      throw new Error("UserID not found");
+    }
+    const response = await api.get(`/user/${resolvedUserId}/friends`);
     return response.data;
   } catch (error) {
     console.error("Error fetching friends list:", error);
@@ -75,9 +90,38 @@ export const fetchFriendsList = async (userId: number) => {
   }
 };
 
-export const deleteFriend = async (userId: number, friendId: number) => {
+export const handleAddFriend = async (
+  friendName: string,
+  birthdate: Date | null = null
+) => {
   try {
-    const response = await api.delete(`/user/${userId}/friend/${friendId}`);
+    const resolvedUserId = await getUserId();
+    if (!resolvedUserId) {
+      throw new Error("UserID not found");
+    }
+
+    const currentBirthdate = birthdate || new Date();
+
+    const response = await api.post(`/user/${resolvedUserId}/friends`, {
+      friendName,
+      dateOfBirth: currentBirthdate,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error adding friend:", error);
+    throw error;
+  }
+};
+
+export const deleteFriend = async (friendId: number) => {
+  try {
+    const resolvedUserId = await getUserId();
+    if (!resolvedUserId) {
+      throw new Error("UserID not found");
+    }
+
+    const response = await api.delete(`/user/${resolvedUserId}/friend/${friendId}`);
     console.log("deleteFriend successful");
     return response.data;
   } catch (error) {

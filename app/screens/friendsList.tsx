@@ -10,8 +10,6 @@ import {
 import Accordion from "../components/Accordion";
 
 export default function FriendList() {
-  const userId = 8; // Assuming a fixed userId for now
-
   const { height } = Dimensions.get("window");
   useEffect(() => {
     console.log(`Window dimensions: height=${height}`);
@@ -28,7 +26,7 @@ export default function FriendList() {
       >
         <View style={styles.container}>
           <Text style={styles.header}>Friend List</Text>
-          <Accordion userId={userId} />
+          <Accordion />
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -5,49 +5,59 @@ import {
   TextInput,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Calendar from "../components/Calendar";
-import axios from "axios";
+import { handleAddFriend } from "services/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AddFriend() {
   const [name, setName] = useState("");
   const [birthdate, setBirthdate] = useState<Date | null>(null);
   const [popupVisible, setPopupVisible] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  // Temporary hardcoded userId
-  let userId = 8;
-
-  const handleAddFriend = async () => {
-    try {
-      // Delete currentBirthdate in production!
-      const currentBirthdate = birthdate || new Date(); // Use today's date if birthdate is null
-      const response = await axios.post(
-        `https://172.21.215.20:3000/api/user/${userId}/friends`,
-        {
-          friendName: name,
-          dateOfBirth: currentBirthdate,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.status === 201) {
-        console.log("Success", "Friend added successfully!");
-        setName("");
-        setPopupVisible(true);
-        setTimeout(() => {
-          setPopupVisible(false);
-        }, 3000); // Hide popup after 3 seconds
+  // Fetch userId asynchronously on component mount
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const storedUserId = await AsyncStorage.getItem("userId");
+        setUserId(storedUserId);
+        console.log("userId from addFriend: ", storedUserId);
+      } catch (error) {
+        console.error("Error fetching userId:", error);
       }
+    };
+
+    fetchUserId();
+  }, []);
+
+
+  const addFriend = async () => {
+    if (!name.trim()) {
+      Alert.alert("Input Error", "Please enter your friend's name.");
+      return;
+    }
+
+    try {
+      await handleAddFriend(name, birthdate);
+      // Clear the input fields and show success popup
+      setName("");
+      setBirthdate(null);
+      setPopupVisible(true);
+
+      setTimeout(() => {
+        setPopupVisible(false);
+      }, 3000); // Hide popup after 3 seconds
     } catch (error) {
-      console.log("Error", "There was an error adding your friend :", error);
+      console.error("Error adding friend:", error);
+      Alert.alert("Error", "Failed to add friend. Please try again.");
     }
   };
 
   return (
+
     <View style={styles.container}>
       <Text style={{ textAlign: "left" }}>Your friend's name:</Text>
       <TextInput
@@ -64,7 +74,7 @@ export default function AddFriend() {
       </View>
       <TouchableOpacity
         style={styles.addFriendButton}
-        onPress={handleAddFriend}
+        onPress={addFriend}
       >
         <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
           Add Friend
@@ -106,13 +116,13 @@ const styles = StyleSheet.create({
     bottom: 30,
   },
   popup: {
-    position: 'absolute',
+    position: "absolute",
     top: 50,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     padding: 10,
     borderRadius: 5,
   },
   popupText: {
-    color: 'white',
+    color: "white",
   },
 });

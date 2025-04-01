@@ -11,7 +11,7 @@ import Collapsible from "react-native-collapsible";
 import ConfirmationPopUp from "./ConfirmationPopUp";
 import { fetchFriendsList, deleteFriend } from "../../services/api";
 
-export default function Accordion({ userId }: { userId: number }): JSX.Element {
+export default function Accordion(): JSX.Element {
   const [data, setData] = useState<{
     friends: Friend[];
   } | null>(null);
@@ -22,7 +22,7 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
 
   const fetchData = async () => {
     try {
-      const result: Friend[] = await fetchFriendsList(userId);
+      const result: Friend[] = await fetchFriendsList();
       setData({ friends: result });
       console.log("data :", data);
     } catch (err) {
@@ -32,11 +32,13 @@ export default function Accordion({ userId }: { userId: number }): JSX.Element {
 
   useEffect(() => {
     fetchData();
-  }, [userId]);
+  },
+  // [userId]
+);
 
   const handleDeleteFriend = async () => {
     if (friendToDelete) {
-      await deleteFriend(userId, friendToDelete.id);
+      await deleteFriend(friendToDelete.id);
       setPopupVisible(false);
       setFriendToDelete(null);
       fetchData(); // Refresh the list after deletion

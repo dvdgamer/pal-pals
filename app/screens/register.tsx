@@ -38,6 +38,7 @@ export default function RegisterScreen(): JSX.Element {
     if (checkInput()) {
       register(name, email, password);
       Alert.alert("Registration Successful", `Welcome, ${name}!`);
+      // Navigate
     }
   };
 

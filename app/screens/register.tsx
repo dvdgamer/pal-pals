@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { register } from "../../services/api";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 
 export default function RegisterScreen(): JSX.Element {
   const [name, setName] = useState("");
@@ -31,6 +31,7 @@ export default function RegisterScreen(): JSX.Element {
       register(name, email, password);
       Alert.alert("Registration Successful", `Welcome, ${name}!`);
       // Navigate
+	  navigation.navigate("Home Screen");
     }
   };
 

@@ -20,7 +20,6 @@ export default function FriendList() {
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-          paddingVertical: 20,
           height: height,
         }}
       >
@@ -41,18 +40,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "purple",
   },
-  // friendElementContainer: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   alignItems: "center",
-  //   fontSize: 24,
-  //   borderColor: "black",
-  //   borderWidth: 0.5,
-  //   marginTop: 10,
-  //   padding: 10,
-  //   width: "100%",
-  //   backgroundColor: "white",
-  // },
   friendElementContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

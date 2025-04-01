@@ -3,36 +3,17 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  SafeAreaView,
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Calendar from "../components/Calendar";
 import { handleAddFriend } from "services/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AddFriend() {
   const [name, setName] = useState("");
   const [birthdate, setBirthdate] = useState<Date | null>(null);
   const [popupVisible, setPopupVisible] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
-
-  // Fetch userId asynchronously on component mount
-  useEffect(() => {
-    const fetchUserId = async () => {
-      try {
-        const storedUserId = await AsyncStorage.getItem("userId");
-        setUserId(storedUserId);
-        console.log("userId from addFriend: ", storedUserId);
-      } catch (error) {
-        console.error("Error fetching userId:", error);
-      }
-    };
-
-    fetchUserId();
-  }, []);
-
 
   const addFriend = async () => {
     if (!name.trim()) {
@@ -57,7 +38,6 @@ export default function AddFriend() {
   };
 
   return (
-
     <View style={styles.container}>
       <Text style={{ textAlign: "left" }}>Your friend's name:</Text>
       <TextInput
@@ -65,6 +45,7 @@ export default function AddFriend() {
         value={name}
         onChangeText={setName}
         autoCorrect={false}
+        placeholder="Enter friend's name"
       />
       <Text>Your friend's name is:</Text>
       <Text style={{ fontWeight: "bold", fontSize: 24 }}> {name}</Text>
@@ -72,10 +53,7 @@ export default function AddFriend() {
       <View>
         <Calendar onDateChange={setBirthdate} />
       </View>
-      <TouchableOpacity
-        style={styles.addFriendButton}
-        onPress={addFriend}
-      >
+      <TouchableOpacity style={styles.addFriendButton} onPress={addFriend}>
         <Text style={{ fontSize: 24, fontWeight: "bold", color: "white" }}>
           Add Friend
         </Text>

@@ -1,117 +1,43 @@
-import React from "react";
-// import Home from "./app/home";
-import HomeScreen from "./screens/index";
-import SignIn from "./screens/signIn";
-import Settings from "./screens/settings";
-import AddFriend from "./screens/addFriend";
-import FriendsList from "./screens/friendsList";
-import RegisterScreen from "./screens/register";
-import LogoutIcon from "./components/LogoutIcon";
-import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
-// import { StatusBar } from "expo-status-bar";
-import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { logout } from "../services/api";
+import Navigation from "./Navigation";
+import { useState, useEffect, useRef } from "react";
+import { Text, View, Button, Platform } from "react-native";
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import Constants from "expo-constants";
 
-const Stack = createStackNavigator();
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySoubd: true,
+    shouldSetBadge: true,
+  }),
+});
 
-export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const checkToken = async () => {
-      try {
-        const token = await AsyncStorage.getItem("jwt");
-        if (token) {
-          console.log("Token found:", token);
-          setIsLoggedIn(true);
-        }
-        else if (token == undefined) {
-          setIsLoggedIn(false);
-        } else {
-          console.log("No token found");
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error("Error checking token:", error);
-        Alert.alert("Error", "An error occurred while checking the token.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    checkToken();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  return (
-    // TODO place this in Navigation.tsx
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
-        <Stack.Screen
-          name="Home Screen"
-          component={HomeScreen}
-          options={({ navigation }) => ({
-            headerShadowVisible: false,
-            headerTitle: "",
-            // headerTitle: "Dashboard",
-            headerTitleAlign: "center",
-            // headerStyle: { backgroundColor: "#FFC9AD" },
-            headerRight: () => (
-              <ScreenHeaderBtn
-                title="Settings"
-                onClick={() => navigation.navigate("Settings")}
-                iconUrl={require("../assets/images/cog.png")}
-                dimension={{ width: 30, height: 30 }}
-              />
-            ),
-            headerLeft: () => (
-              <ScreenHeaderBtn
-                title="Friends List"
-                onClick={() => navigation.navigate("Friends List")}
-                iconUrl={require("../assets/images/contacts.png")}
-                dimension={{ width: 35, height: 35 }}
-              />
-            ),
-          })}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={() => ({
-            headerShadowVisible: true,
-            // headerStyle: { backgroundColor: "#FFC9AD" },
-            headerRight: () => <LogoutIcon />,
-          })}
-        />
-        <Stack.Screen name="Sign in" component={SignIn} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Add a friend" component={AddFriend} />
-        <Stack.Screen name="Friends List" component={FriendsList} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+function handleRegistrationError(errorMessage: string) {
+  alert(errorMessage);
+  throw new Error(errorMessage);
 }
 
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#FFC9AD",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+async function sendPushNotification(expoPushToken: string) {
+  const message = {
+    to: expoPushToken,
+    sound: "default",
+    title: "Original Title",
+    body: "And here is the body!",
+    data: { someData: "goes here" },
+  };
+
+  await fetch("https://exp.host/--/api/v2/push/send", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Accept-encoding": "gzip, deflate",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(message),
+  });
+}
+
+export default function App() {
+  return <Navigation />;
+}

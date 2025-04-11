@@ -4,7 +4,7 @@
       "typedRoutes": true
     },
     "name": "pal-pals",
-    "slug": "pal-pals",
+    "slug": "palpals",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -35,6 +35,15 @@
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "8fbad8e6-4688-4071-bee7-ebb23788def4"
+      }
+    },
+    "owner": "dvdgamer"
   }
 }

@@ -13,7 +13,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ActivityIndicator, Alert, StyleSheet, View } from "react-native";
 
-// Create the stack navigator
 const Stack = createStackNavigator();
 
 const Navigation = () => {
@@ -55,7 +54,7 @@ const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={isLoggedIn ? "Home" : "Register"}>
         <Stack.Screen
-          name="Home Screen"
+          name="Home"
           component={HomeScreen}
           options={({ navigation }) => ({
             headerShadowVisible: false,

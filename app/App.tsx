@@ -118,30 +118,31 @@ export default function App() {
     };
   }, []);
 
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Your Expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text>
-          Title: {notification && notification.request.content.title}{" "}
-        </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>
-          Data:{" "}
-          {notification && JSON.stringify(notification.request.content.data)}
-        </Text>
-      </View>
-      <Button
-        title="Press to Send Notification"
-        onPress={async () => {
-          await sendPushNotification(expoPushToken);
-        }}
-      />
-      <Text>
-        {Device.manufacturer}: {Device.modelName}
-      </Text>
-      <Text>{Device.isDevice ? "Hello" : null}</Text>
-      <Navigation />
-    </View>
-  );
+  return <Navigation />
+  // return (
+  //   <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //     <Text>Your Expo push token: {expoPushToken}</Text>
+  //     <View style={{ alignItems: "center", justifyContent: "center" }}>
+  //       <Text>
+  //         Title: {notification && notification.request.content.title}{" "}
+  //       </Text>
+  //       <Text>Body: {notification && notification.request.content.body}</Text>
+  //       <Text>
+  //         Data:{" "}
+  //         {notification && JSON.stringify(notification.request.content.data)}
+  //       </Text>
+  //     </View>
+  //     <Button
+  //       title="Press to Send Notification"
+  //       onPress={async () => {
+  //         await sendPushNotification(expoPushToken);
+  //       }}
+  //     />
+  //     <Text>
+  //       {Device.manufacturer}: {Device.modelName}
+  //     </Text>
+  //     <Text>{Device.isDevice ? "Hello" : null}</Text>
+  //     <Text>bellow Navigation</Text>
+  //   </View>
+  //   );
 }

@@ -24,7 +24,7 @@ export default function FriendList() {
         }}
       >
         <View style={styles.container}>
-          <Text style={styles.header}>Friend List</Text>
+          {/* <Text style={styles.header}>Friend List</Text> */}
           <Accordion />
         </View>
       </ScrollView>
@@ -32,7 +32,7 @@ export default function FriendList() {
   );
 }
 
-// STYLES ////////////////////////////////////////////////////////////
+// STYLES ------------------------------------------------------------
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",

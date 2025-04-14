@@ -48,7 +48,6 @@ export default function AddFriend() {
         placeholder="Enter friend's name"
       />
       <Text>Your friend's name is:</Text>
-      // TODO: If name is too long it breaks the output box
       <Text style={{ fontWeight: "bold", fontSize: 24 }}> {name}</Text>
       <Text>Add their birthday:</Text>
       <View>

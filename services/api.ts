@@ -3,8 +3,8 @@ import axios from "axios";
 import { API_BASE_URL_PROD, API_BASE_URL_DEV } from "@env";
 
 const api = axios.create({
-  // baseURL: API_BASE_URL_PROD,
-  baseURL: API_BASE_URL_DEV,
+  baseURL: API_BASE_URL_PROD,
+  // baseURL: API_BASE_URL_DEV,
   timeout: 10000, // Sets timeout to 10 secs
   headers: {
     "Content-Type": "application/json",

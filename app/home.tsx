@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
+import ScreenHeaderBtn from "./components/ScreenHeaderBtn";
 import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
         headerRight: () => (
           <ScreenHeaderBtn
             title="Right Button"
-            onClick={() => console.log("Button clicked")}
+            onClick={() => console.log("Button clickedt")}
             iconUrl={undefined}
             dimension={undefined}
           />
